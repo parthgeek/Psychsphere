@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+
 import { motion } from "framer-motion";
 import {
   Menu,
@@ -14,6 +15,7 @@ import {
   Mail,
   Phone,
 } from "lucide-react";
+import Image from "next/image";
 
 const PsychsphereWebsite = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -203,22 +205,27 @@ const PsychsphereWebsite = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <header className="fixed top-0 w-full bg-white/95 backdrop-blur-sm z-50 border-b border-gray-100">
+      <header className="fixed top-0 w-full bg-white/95 backdrop-blur-sm z-50 py-6">
         <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 sm:h-20">
             {/* Logo */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="flex items-center space-x-2"
-            >
-              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-teal-700 rounded-lg flex items-center justify-center text-white text-xl font-bold">
-                P
-              </div>
-              <span className="text-xl sm:text-2xl font-semibold text-gray-900">
-                PsychSphere
-              </span>
-            </motion.div>
+          <motion.div
+  initial={{ opacity: 0, x: -20 }}
+  animate={{ opacity: 1, x: 0 }}
+  className="flex items-center"
+>
+  <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-lg overflow-hidden flex items-center justify-center">
+    <Image
+      src="/logo.jpeg"
+      alt="Logo"
+      width="112"
+      height="112"
+      className="w-full h-full object-cover"
+    />
+  </div>
+</motion.div>
+
+
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-8">
@@ -302,20 +309,33 @@ const PsychsphereWebsite = () => {
       {/* Hero Section */}
       <section className="pt-24 sm:pt-32 pb-12 sm:pb-20 px-4 sm:px-6 lg:px-8">
         <div className="container mx-auto text-center">
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="text-gray-600 mb-4 sm:mb-6"
-          >
-            PsychSphere
-          </motion.p>
+    <motion.p className="text-gray-600 mb-4 sm:mb-6 text-4xl">
+  {"PsychSphere".split("").map((char, index) => (
+    <motion.span
+      key={index}
+      animate={{
+        opacity: [0, 1, 1, 0],
+        y: [20, 0, 0, -20],
+      }}
+      transition={{
+        delay: index * 0.05,
+        duration: 5,
+        times: [0, 0.2, 0.8, 1],
+        repeat: Infinity,
+        repeatDelay: 1,
+      }}
+      style={{ display: 'inline-block' }}
+    >
+      {char === " " ? "\u00A0" : char}
+    </motion.span>
+  ))}
+</motion.p>
 
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-6 sm:mb-8 leading-tight"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-gray-900 mb-6 sm:mb-8 leading-tight"
           >
             Exploring Routes to
             <br />
@@ -340,39 +360,57 @@ const PsychsphereWebsite = () => {
             </button>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.7 }}
-            className="flex items-center justify-center space-x-3"
-          >
-            <div className="flex -space-x-2">
-              <div className="w-10 h-10 rounded-full bg-teal-200 border-2 border-white"></div>
-              <div className="w-10 h-10 rounded-full bg-teal-300 border-2 border-white"></div>
-              <div className="w-10 h-10 rounded-full bg-teal-400 border-2 border-white"></div>
-            </div>
-            <div className="text-left">
-              <p className="text-sm text-gray-600">Trusted by many</p>
-              <div className="flex items-center space-x-1">
-                <Star size={16} fill="#FFA500" stroke="#FFA500" />
-                <span className="text-sm font-semibold">4.9</span>
-                <span className="text-sm text-gray-500">(150+ sessions)</span>
-              </div>
-            </div>
-          </motion.div>
+         <motion.div
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  transition={{ delay: 0.7 }}
+  className="flex items-center justify-center space-x-3"
+>
+  {/* Small Round Profile Images */}
+  <div className="flex -space-x-3">
+    <img
+      src="/user1.avif" 
+      alt="user1"
+      className="w-10 h-10 rounded-full border-2 border-white object-cover"
+    />
+    <img
+      src="/user2.avif" 
+      alt="user2"
+      className="w-10 h-10 rounded-full border-2 border-white object-cover"
+    />
+    <img
+      src="/user3.avif" 
+      alt="user3"
+      className="w-10 h-10 rounded-full border-2 border-white object-cover"
+    />
+  </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.9 }}
-            className="mt-12 sm:mt-16 rounded-2xl overflow-hidden"
-          >
-            <div className="bg-gradient-to-r from-teal-100 to-teal-200 h-64 sm:h-96 md:h-[500px] flex items-center justify-center">
-              <span className="text-teal-700 text-lg">
-                Welcome to Your Healing Journey
-              </span>
-            </div>
-          </motion.div>
+  {/* Text + Rating Section */}
+  <div className="text-left">
+    <p className="text-sm text-gray-600">Trusted by many</p>
+    <div className="flex items-center space-x-1">
+      <Star size={16} fill="#FFA500" stroke="#FFA500" />
+      <span className="text-sm font-semibold text-black">4.9</span>
+      <span className="text-sm text-gray-500">(150+ sessions)</span>
+    </div>
+  </div>
+</motion.div>
+
+
+       <motion.div
+  initial={{ opacity: 0, y: 30 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ delay: 0.9 }}
+  className="mt-12 sm:mt-16 rounded-2xl overflow-hidden relative"
+>
+  <img
+    src="/hero.jpg"
+    alt="Healing Journey"
+    className="w-full h-full object-cover h-80 sm:h-[40rem] md:h-[50rem]"
+  />
+</motion.div>
+
+
         </div>
       </section>
 
@@ -388,9 +426,9 @@ const PsychsphereWebsite = () => {
             viewport={{ once: true }}
             className="text-center max-w-6xl mx-auto"
           >
-            <p className="text-gray-600 mb-4">Introduction</p>
+           
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-8">
-              Welcome to PsychSphere — a safe, compassionate, and holistic space
+              Welcome to PsychSphere <br/> a safe, compassionate, and holistic space
             </h2>
 
             <div className="text-lg text-gray-700 space-y-6 text-left max-w-4xl mx-auto">
@@ -409,7 +447,69 @@ const PsychsphereWebsite = () => {
           </motion.div>
         </div>
       </section>
+{/* About Us Section with Image and Stats */}
+<section className="py-12 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#EDF5F7]">
+  <div className="container mx-auto">
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center"
+    >
+      {/* Image Side */}
+      <div className="order-2 lg:order-1">
+        <img
+          src="/about-us.jpg"
+          alt="Therapy Session"
+          className="w-full h-[400px] sm:h-[500px] object-cover rounded-3xl shadow-lg"
+        />
+      </div>
 
+      {/* Content Side */}
+      <div className="order-1 lg:order-2">
+        <p className="text-gray-600 mb-4">About us</p>
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+          Empowering growth and well-being care.
+        </h2>
+        <p className="text-lg text-gray-700 mb-8">
+          At our core, we believe in creating a safe, supportive environment 
+          where individuals can explore their emotions, overcome challenges, 
+          and achieve personal transformation. With a focus on compassion and 
+          tailored approaches, we guide you toward clarity, resilience, and a 
+          fulfilling life.
+        </p>
+
+        {/* Stats Grid */}
+        <div className="grid grid-cols-2 gap-6">
+          <div>
+            <h3 className="text-4xl sm:text-5xl font-bold text-[#5A8B94] mb-2">
+              95%
+            </h3>
+            <p className="text-gray-700">Client satisfaction</p>
+          </div>
+          <div>
+            <h3 className="text-4xl sm:text-5xl font-bold text-[#5A8B94] mb-2">
+              5+
+            </h3>
+            <p className="text-gray-700">Years experience</p>
+          </div>
+          <div>
+            <h3 className="text-4xl sm:text-5xl font-bold text-[#5A8B94] mb-2">
+              150+
+            </h3>
+            <p className="text-gray-700">Sessions completed</p>
+          </div>
+          <div>
+            <h3 className="text-4xl sm:text-5xl font-bold text-[#5A8B94] mb-2">
+              85%
+            </h3>
+            <p className="text-gray-700">Improved well-being</p>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  </div>
+</section>
       {/* Co-Founders Section */}
       <section id="founders" className="py-12 sm:py-20 px-4 sm:px-6 lg:px-8">
         <div className="container mx-auto">
@@ -909,44 +1009,6 @@ const PsychsphereWebsite = () => {
             </div>
 
             <div>
-              <h4 className="font-semibold text-gray-900 mb-4">Quick Links</h4>
-              <ul className="space-y-2 text-gray-600">
-                <li>
-                  <a
-                    href="#about"
-                    className="hover:text-teal-700 transition-colors"
-                  >
-                    About
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#services"
-                    className="hover:text-teal-700 transition-colors"
-                  >
-                    Services
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#founders"
-                    className="hover:text-teal-700 transition-colors"
-                  >
-                    Co-Founders
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#booking"
-                    className="hover:text-teal-700 transition-colors"
-                  >
-                    Book Session
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            <div>
               <h4 className="font-semibold text-gray-900 mb-4">Connect</h4>
               <ul className="space-y-2 text-gray-600">
                 <li>
@@ -978,8 +1040,7 @@ const PsychsphereWebsite = () => {
 
           <div className="border-t border-gray-200 pt-8 text-center text-gray-600">
             <p>
-              &copy; 2024 PsychSphere. All rights reserved. | Designed with ❤️
-              for mental wellness
+              &copy; 2024 PsychSphere. All rights reserved.
             </p>
           </div>
         </div>
