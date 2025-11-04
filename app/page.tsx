@@ -439,7 +439,7 @@ const PsychsphereWebsite = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="text-4xl sm:text-5xl md:text-6xl font-semibold text-slate-900 max-w-4xl mx-auto leading-[1.1] tracking-wider"
+            className="text-4xl sm:text-5xl md:text-6xl font-semibold text-slate-900 max-w-4xl mx-auto mb-8 leading-[1.1] tracking-wider"
           >
             Exploring Routes to
             <br />
