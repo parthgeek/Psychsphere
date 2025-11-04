@@ -388,84 +388,32 @@ const PsychsphereWebsite = () => {
           </div>
 
           {/* Mobile Menu */}
-          {mobileMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="md:hidden py-4 border-t border-gray-100"
-            >
-              <a
-                href="#about"
-                onClick={(e: React.MouseEvent) => {
-                  e.preventDefault();
-                  setMobileMenuOpen(false);
-                  document.getElementById("about")?.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start",
-                  });
-                }}
-                className="block py-2 text-gray-700"
-              >
-                About
-              </a>
-              <a
-                href="#services"
-                onClick={(e: React.MouseEvent) => {
-                  e.preventDefault();
-                  setMobileMenuOpen(false);
-                  document.getElementById("services")?.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start",
-                  });
-                }}
-                className="block py-2 text-gray-700"
-              >
-                Services
-              </a>
-              <a
-                href="#founders"
-                onClick={(e: React.MouseEvent) => {
-                  e.preventDefault();
-                  setMobileMenuOpen(false);
-                  document.getElementById("founders")?.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start",
-                  });
-                }}
-                className="block py-2 text-gray-700"
-              >
-                Co-Founders
-              </a>
-              <a
-                href="#booking"
-                onClick={(e: React.MouseEvent) => {
-                  e.preventDefault();
-                  setMobileMenuOpen(false);
-                  document.getElementById("booking")?.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start",
-                  });
-                }}
-                className="block py-2 text-gray-700"
-              >
-                Book Now
-              </a>
-              <motion.a
-                href="#booking"
-                onClick={(e: React.MouseEvent) => {
-                  e.preventDefault();
-                  setMobileMenuOpen(false);
-                  document.getElementById("booking")?.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start",
-                  });
-                }}
-                className="block w-full mt-4 bg-teal-700 text-white px-6 py-2.5 rounded-lg text-center"
-              >
-                Book Session
-              </motion.a>
-            </motion.div>
-          )}
+         
+
+{mobileMenuOpen && (
+  <motion.div className="md:hidden py-4 border-t border-gray-100">
+    <Link href="/" onClick={() => setMobileMenuOpen(false)} className="block py-2 text-gray-700">
+      Home
+    </Link>
+
+    <Link
+      href="/services"
+      onClick={() => setMobileMenuOpen(false)}
+      className="block py-2 text-teal-700 font-semibold"
+    >
+      Services
+    </Link>
+
+    <Link href="/#founders" onClick={() => setMobileMenuOpen(false)} className="block py-2 text-gray-700">
+      Co-Founders
+    </Link>
+
+    <Link href="/#booking" onClick={() => setMobileMenuOpen(false)} className="block py-2 text-gray-700">
+      Book Now
+    </Link>
+  </motion.div>
+)}
+
         </nav>
       </header>
 
