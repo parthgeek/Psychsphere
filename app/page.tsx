@@ -1,7 +1,8 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { motion, useInView } from "framer-motion";
+import Link from "next/link";
 
-import { motion } from "framer-motion";
 import {
   Menu,
   X,
@@ -16,6 +17,71 @@ import {
   Phone,
 } from "lucide-react";
 import Image from "next/image";
+
+
+const CountUp: React.FC<{
+  end: number;
+  suffix?: string;
+  duration?: number; // seconds
+  className?: string;
+}> = ({ end, suffix = "", duration = 1.8, className = "" }) => {
+  const ref = useRef<HTMLSpanElement | null>(null);
+  // make sure useInView is imported: useInView(ref, { once: false })
+  const inView = useInView(ref, { once: false });
+  const [value, setValue] = useState<number>(0);
+  const rafRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    // start animation when it becomes visible
+    if (inView) {
+      const start = performance.now();
+      const from = 0;
+      const to = end;
+
+      const animate = (now: number) => {
+        const elapsed = now - start;
+        const progress = Math.min(1, elapsed / (duration * 1000));
+        // easeOutQuad
+        const eased = 1 - (1 - progress) * (1 - progress);
+        const current = Math.floor(from + (to - from) * eased);
+        setValue(current);
+        if (progress < 1) {
+          rafRef.current = requestAnimationFrame(animate);
+        } else {
+          setValue(to);
+          rafRef.current = null;
+        }
+      };
+
+      // ensure any prior RAF is cleared
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      rafRef.current = requestAnimationFrame(animate);
+      return () => {
+        if (rafRef.current) cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      };
+    }
+
+    // when it goes out of view, cancel animation and reset so it can run again
+    if (!inView) {
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      }
+      setValue(0);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inView, end, duration]);
+
+  return (
+    <span ref={ref} className={className}>
+      {value.toLocaleString()}
+      {suffix}
+    </span>
+  );
+};
+
 
 const PsychsphereWebsite = () => {
   const [activeSection, setActiveSection] = useState("about");
@@ -245,24 +311,17 @@ const PsychsphereWebsite = () => {
               >
                 About
               </a>
-              <a
-                href="#services"
-                onClick={(e: React.MouseEvent) => {
-                  e.preventDefault();
-                  setActiveSection("services");
-                  document.getElementById("services")?.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start",
-                  });
-                }}
-                className={`transition-colors flex items-center ${
-                  activeSection === "services"
-                    ? "text-teal-700 text-lg font-semibold"
-                    : "text-gray-700 hover:text-teal-700"
-                }`}
-              >
-                Services
-              </a>
+           <Link
+  href="/service"
+  className={`transition-colors ${
+    activeSection === "services"
+      ? "text-teal-700 text-lg font-semibold"
+      : "text-gray-700 hover:text-teal-700"
+  }`}
+>
+  Services
+</Link>
+
               <a
                 href="#founders"
                 onClick={(e: React.MouseEvent) => {
@@ -574,48 +633,57 @@ const PsychsphereWebsite = () => {
             </div>
 
             {/* Content Side */}
-            <div className="order-1 lg:order-2">
-              <p className="text-gray-600 mb-4">About us</p>
-              <h2 className="text-4xl sm:text-5xl md:text-6xl font-extralight text-slate-900 max-w-4xl mx-auto leading-[1.1] tracking-tight">
-                Empowering <span className="font-light italic">growth </span>{" "}
-                and <span className="font-light italic">well-being </span> care.
-              </h2>
-              <p className="text-lg text-gray-700 mb-8">
-                At our core, we believe in creating a safe, supportive
-                environment where individuals can explore their emotions,
-                overcome challenges, and achieve personal transformation. With a
-                focus on compassion and tailored approaches, we guide you toward
-                clarity, resilience, and a fulfilling life.
-              </p>
+          <div className="order-1 lg:order-2">
+  {/* Section label */}
+  <div className="flex items-center gap-3 mb-6">
+    <div className="flex-1 h-px bg-gradient-to-r from-transparent via-gray-200 to-gray-200" />
+    <span className="px-4 text-xs font-medium text-gray-400 tracking-[0.15em] uppercase">
+      About Us
+    </span>
+    <div className="flex-1 h-px bg-gradient-to-r from-gray-200 to-transparent" />
+  </div>
 
-              {/* Stats Grid */}
-              <div className="grid grid-cols-2 gap-6">
-                <div>
-                  <h3 className="text-4xl sm:text-5xl font-bold text-[#5A8B94] mb-2">
-                    95%
-                  </h3>
-                  <p className="text-gray-700">Client satisfaction</p>
-                </div>
-                <div>
-                  <h3 className="text-4xl sm:text-5xl font-bold text-[#5A8B94] mb-2">
-                    5+
-                  </h3>
-                  <p className="text-gray-700">Years experience</p>
-                </div>
-                <div>
-                  <h3 className="text-4xl sm:text-5xl font-bold text-[#5A8B94] mb-2">
-                    150+
-                  </h3>
-                  <p className="text-gray-700">Sessions completed</p>
-                </div>
-                <div>
-                  <h3 className="text-4xl sm:text-5xl font-bold text-[#5A8B94] mb-2">
-                    85%
-                  </h3>
-                  <p className="text-gray-700">Improved well-being</p>
-                </div>
-              </div>
-            </div>
+  <h2 className="text-4xl sm:text-5xl md:text-6xl font-extralight text-slate-900 max-w-4xl mx-auto leading-[1.1] tracking-tight">
+    Empowering <span className="font-light italic">growth</span>{" "}
+    and <span className="font-light italic">well-being</span> care.
+  </h2>
+
+  <p className="text-lg text-gray-700 mb-8">
+    At our core, we believe in creating a safe, supportive environment where
+    individuals can explore their emotions, overcome challenges, and achieve
+    personal transformation. With a focus on compassion and tailored approaches,
+    we guide you toward clarity, resilience, and a fulfilling life.
+  </p>
+
+  {/* Stats Grid */}
+  <div className="grid grid-cols-2 gap-6">
+    <div>
+      <h3 className="text-4xl sm:text-5xl font-bold text-[#5A8B94] mb-2">
+   <CountUp end={95} suffix="%" />
+ </h3>
+      <p className="text-gray-700">Client satisfaction</p>
+    </div>
+    <div>
+     <h3 className="text-4xl sm:text-5xl font-bold text-[#5A8B94] mb-2">
+   <CountUp end={5} suffix="+" />
+ </h3>
+      <p className="text-gray-700">Years experience</p>
+    </div>
+    <div>
+      <h3 className="text-4xl sm:text-5xl font-bold text-[#5A8B94] mb-2">
+   <CountUp end={150} suffix="+" />
+ </h3>
+      <p className="text-gray-700">Sessions completed</p>
+    </div>
+    <div>
+      <h3 className="text-4xl sm:text-5xl font-bold text-[#5A8B94] mb-2">
+   <CountUp end={85} suffix="%" />
+ </h3>
+      <p className="text-gray-700">Improved well-being</p>
+    </div>
+  </div>
+</div>
+
           </motion.div>
         </div>
       </section>
@@ -709,7 +777,12 @@ const PsychsphereWebsite = () => {
             viewport={{ once: true }}
             className="text-center mb-12 sm:mb-16"
           >
-            <p className="text-gray-600 mb-4">Services</p>
+           <p className="text-xs font-medium text-gray-400 tracking-[0.25em] uppercase mb-6 relative">
+              <span className="bg-white px-4 relative z-10">Service</span>
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full h-px bg-linear-to-r from-transparent via-gray-200 to-transparent"></div>
+              </div>
+            </p>
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-extralight text-slate-900 max-w-4xl mx-auto leading-[1.1] tracking-tight">
               Our Holistic <span className="font-light italic">Healing</span>{" "}
               Services
@@ -787,7 +860,13 @@ const PsychsphereWebsite = () => {
             viewport={{ once: true }}
             className="text-center mb-12 sm:mb-16"
           >
-            <p className="text-gray-600 mb-4">Why Choose PsychSphere</p>
+             <p className="text-xs font-medium text-gray-400 tracking-[0.25em] uppercase mb-6 relative">
+              <span className="bg-white px-4 relative z-10">Why Choose PsychSphere</span>
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full h-px bg-linear-to-r from-transparent via-gray-200 to-transparent"></div>
+              </div>
+            </p>
+            
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-extralight text-slate-900 max-w-4xl mx-auto leading-[1.1] tracking-tight">
               Key features to enhance your{" "}
               <span className="font-light italic">Journey </span>
@@ -1019,9 +1098,13 @@ const PsychsphereWebsite = () => {
             transition={{ duration: 0.8, ease: [0.25, 0.25, 0, 1] }}
             className="text-center mb-20"
           >
-            <div className="inline-block px-3 py-1 text-xs font-medium text-slate-600 bg-slate-50 rounded-full mb-6 tracking-wider uppercase">
-              Testimonials
-            </div>
+             <p className="text-xs font-medium text-gray-400 tracking-[0.25em] uppercase mb-6 relative">
+              <span className="bg-white px-4 relative z-10">Testimonials</span>
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full h-px bg-linear-to-r from-transparent via-gray-200 to-transparent"></div>
+              </div>
+            </p>
+           
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-extralight text-slate-900 max-w-4xl mx-auto leading-[1.1] tracking-tight">
               What our clients say about their{" "}
               <span className="font-light italic">journey</span>
@@ -1104,7 +1187,13 @@ const PsychsphereWebsite = () => {
             viewport={{ once: true }}
             className="text-center mb-12 sm:mb-16"
           >
-            <p className="text-gray-600 mb-4">FAQ's</p>
+            <p className="text-xs font-medium text-gray-400 tracking-[0.25em] uppercase mb-6 relative">
+              <span className="bg-white px-4 relative z-10">FAQ's</span>
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full h-px bg-linear-to-r from-transparent via-gray-200 to-transparent"></div>
+              </div>
+            </p>
+            
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-extralight text-slate-900 max-w-4xl mx-auto leading-[1.1] tracking-tight">
               Frequently asked questions about{" "}
               <span className="font-light italic">our services</span>
@@ -1163,6 +1252,7 @@ const PsychsphereWebsite = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
+            
             <p className="text-teal-100 mb-4">Start your journey</p>
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-extralight text-gray-200 max-w-4xl mx-auto mb-8 leading-[1.1] tracking-tight">
               Discover your path to emotional well-being and{" "}
