@@ -439,7 +439,7 @@ const PsychsphereWebsite = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-gray-900 mb-6 sm:mb-8 leading-tight"
+            className="text-4xl sm:text-5xl md:text-6xl font-semibold text-slate-900 max-w-4xl mx-auto leading-[1.1] tracking-wider"
           >
             Exploring Routes to
             <br />
@@ -516,7 +516,7 @@ const PsychsphereWebsite = () => {
             <img
               src="/hero.jpg"
               alt="Healing Journey"
-              className="w-full h-full object-cover h-80 sm:h-[40rem] md:h-[50rem]"
+              className="w-full h-full object-cover  sm:h-160 md:h-200"
             />
           </motion.div>
         </div>
@@ -576,8 +576,9 @@ const PsychsphereWebsite = () => {
             {/* Content Side */}
             <div className="order-1 lg:order-2">
               <p className="text-gray-600 mb-4">About us</p>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                Empowering growth and well-being care.
+              <h2 className="text-4xl sm:text-5xl md:text-6xl font-extralight text-slate-900 max-w-4xl mx-auto leading-[1.1] tracking-tight">
+                Empowering <span className="font-light italic">growth </span>{" "}
+                and <span className="font-light italic">well-being </span> care.
               </h2>
               <p className="text-lg text-gray-700 mb-8">
                 At our core, we believe in creating a safe, supportive
@@ -618,87 +619,84 @@ const PsychsphereWebsite = () => {
           </motion.div>
         </div>
       </section>
-      {/* Co-Founders Section */}
-      <section id="founders" className="py-12 sm:py-20 px-4 sm:px-6 lg:px-8">
-        <div className="container mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-12 sm:mb-16"
-          >
-            <p className="text-gray-600 mb-4">About the Co-Founders</p>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-8">
-              Meet Shruti and Muskaan
+      {/* Co-Founders Section - Sophisticated Cards */}
+      <section id="founders" className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div className="container mx-auto max-w-6xl">
+          {/* Refined Header */}
+          <motion.div className="text-center mb-20">
+            <p className="text-xs font-medium text-gray-400 tracking-[0.25em] uppercase mb-6 relative">
+              <span className="bg-white px-4 relative z-10">Leadership</span>
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full h-px bg-linear-to-r from-transparent via-gray-200 to-transparent"></div>
+              </div>
+            </p>
+
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-extralight text-slate-900 max-w-4xl mx-auto leading-[1.1] tracking-tight">
+              Meet Our <em className="italic font-normal">Co-Founders</em>
             </h2>
-            <div className="max-w-4xl mx-auto text-lg text-gray-700 space-y-4">
-              <p>
-                We — Shruti and Muskaan, co-founders of PsychSphere — share a
-                vision of making mental health support accessible, relatable,
-                and deeply healing.
-              </p>
-              <p>
-                Both of us hold an M.Sc. in Clinical Psychology and have earned
-                certifications across multiple therapeutic and wellness
-                modalities to ensure that every service we offer is rooted in
-                knowledge, empathy, and authenticity.
-              </p>
-              <p className="font-medium text-teal-700">
-                Our shared passion for emotional wellness inspires us to bridge
-                the gap between traditional therapy and holistic healing —
-                guiding you towards self-discovery, resilience, and inner peace.
-              </p>
-            </div>
           </motion.div>
 
-          <motion.div
-            variants={staggerContainer}
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-            className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16 max-w-6xl mx-auto"
-          >
+          {/* Sophisticated Cards */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {founders.map((founder, idx) => (
               <motion.div
                 key={idx}
-                variants={fadeInUp}
-                className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100"
+                className="group relative bg-white border border-gray-100 rounded-2xl p-8 hover:shadow-2xl transition-all duration-700 hover:-translate-y-1"
               >
-                <div className="text-center mb-6">
-                  <div className="w-24 h-24 bg-gradient-to-br from-teal-400 to-teal-600 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-2xl font-bold">
-                    {founder.name[0]}
+                {/* Card background gradient */}
+                <div className="absolute inset-0 bg-linear-to-br from-teal-25 via-transparent to-gray-25 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+
+                <div className="relative z-10">
+                  {/* Premium Avatar */}
+                  <div className="flex justify-center mb-6">
+                    <div className="relative">
+                      <div className="w-24 h-24 bg-linear-to-br from-white to-gray-50 rounded-full flex items-center justify-center  transition-all duration-500">
+                        <span className="text-2xl font-light text-gray-700 tracking-wider">
+                          {founder.name[0]}
+                        </span>
+                      </div>
+                      <div className="absolute -inset-2 rounded-full border border-teal-200 opacity-0 group-hover:opacity-100 transition-all duration-500 animate-pulse"></div>
+                    </div>
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900">
-                    {founder.name}
-                  </h3>
-                  <p className="text-teal-700 font-medium">
-                    {founder.credentials}
+
+                  {/* Content */}
+                  <div className="text-center mb-6">
+                    <h3 className="text-xl font-light text-gray-900 mb-1 tracking-wide">
+                      {founder.name}
+                    </h3>
+                    <p className="text-sm text-teal-700 font-medium">
+                      {founder.credentials}
+                    </p>
+                  </div>
+
+                  <p className="text-sm text-gray-600 font-light leading-relaxed text-center mb-6">
+                    {founder.bio}
                   </p>
-                </div>
 
-                <p className="text-gray-700 mb-6">{founder.bio}</p>
-
-                <div>
-                  <h4 className="font-semibold text-gray-900 mb-3">
-                    Specializations:
-                  </h4>
-                  <div className="flex flex-wrap gap-2">
-                    {founder.specialties.map((specialty, specIdx) => (
-                      <span
-                        key={specIdx}
-                        className="bg-teal-50 text-teal-700 px-3 py-1 rounded-full text-sm"
-                      >
-                        {specialty}
-                      </span>
-                    ))}
+                  {/* Elegant list */}
+                  <div className="pt-4 border-t border-gray-100">
+                    <div className="space-y-4">
+                      {founder.specialties.map((specialty, specIdx) => (
+                        <div
+                          key={specIdx}
+                          className="flex items-center justify-center text-center"
+                        >
+                          <span className="text-xs text-gray-600 font-light tracking-wide">
+                            {specialty}
+                          </span>
+                          {specIdx < founder.specialties.length - 1 && (
+                            <span className="mx-2 text-teal-300">•</span>
+                          )}
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </motion.div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
-
       {/* Services Section */}
       <section
         id="services"
@@ -712,8 +710,9 @@ const PsychsphereWebsite = () => {
             className="text-center mb-12 sm:mb-16"
           >
             <p className="text-gray-600 mb-4">Services</p>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900">
-              Our Holistic Healing Services
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-extralight text-slate-900 max-w-4xl mx-auto leading-[1.1] tracking-tight">
+              Our Holistic <span className="font-light italic">Healing</span>{" "}
+              Services
             </h2>
           </motion.div>
 
@@ -789,8 +788,9 @@ const PsychsphereWebsite = () => {
             className="text-center mb-12 sm:mb-16"
           >
             <p className="text-gray-600 mb-4">Why Choose PsychSphere</p>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900">
-              Key features to enhance your journey
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-extralight text-slate-900 max-w-4xl mx-auto leading-[1.1] tracking-tight">
+              Key features to enhance your{" "}
+              <span className="font-light italic">Journey </span>
             </h2>
           </motion.div>
 
@@ -843,8 +843,9 @@ const PsychsphereWebsite = () => {
               <p className="text-teal-600 mb-4 font-medium">
                 Book Your Session
               </p>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                Start Your Healing Journey Today
+              <h2 className="text-4xl sm:text-5xl md:text-6xl font-extralight text-slate-900 max-w-4xl mx-auto leading-[1.1] tracking-tight">
+                Start Your <span className="font-light italic">Healing </span>{" "}
+                <span className="font-light italic">Journey </span> Today
               </h2>
               <p className="text-lg text-gray-700 mb-8">
                 Fill out the form and we'll get back to you within 24 hours to
@@ -1008,52 +1009,88 @@ const PsychsphereWebsite = () => {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-12 sm:py-20 px-4 sm:px-6 lg:px-8">
-        <div className="container mx-auto">
+      <section className="py-20 sm:py-32 px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto max-w-7xl">
+          {/* Header */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-12 sm:mb-16"
+            transition={{ duration: 0.8, ease: [0.25, 0.25, 0, 1] }}
+            className="text-center mb-20"
           >
-            <p className="text-gray-600 mb-4">Testimonials</p>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900">
-              What our clients say about their journey
+            <div className="inline-block px-3 py-1 text-xs font-medium text-slate-600 bg-slate-50 rounded-full mb-6 tracking-wider uppercase">
+              Testimonials
+            </div>
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-extralight text-slate-900 max-w-4xl mx-auto leading-[1.1] tracking-tight">
+              What our clients say about their{" "}
+              <span className="font-light italic">journey</span>
             </h2>
           </motion.div>
 
+          {/* Testimonials Grid */}
           <motion.div
             variants={staggerContainer}
             initial="initial"
             whileInView="animate"
             viewport={{ once: true }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
+            className="grid grid-cols-1 lg:grid-cols-3 gap-px bg-slate-100"
           >
             {testimonials.map((testimonial, idx) => (
               <motion.div
                 key={idx}
                 variants={fadeInUp}
-                className="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-gray-100"
+                className="group bg-white hover:bg-slate-50/50 transition-all duration-500"
               >
-                <div className="flex mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} size={20} fill="#FFA500" stroke="#FFA500" />
-                  ))}
-                </div>
-                <p className="text-gray-700 mb-6">{testimonial.text}</p>
-                <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center text-white font-bold">
-                    {testimonial.name[0]}
+                <div className="p-10 lg:p-12 h-full flex flex-col">
+                  {/* Stars */}
+                  <div className="flex mb-8 space-x-0.5">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        size={16}
+                        fill="currentColor"
+                        className="text-amber-400"
+                      />
+                    ))}
                   </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900">
-                      {testimonial.name}
-                    </h4>
-                    <p className="text-sm text-gray-600">{testimonial.role}</p>
+
+                  {/* Quote */}
+                  <blockquote className="text-slate-700 mb-12 text-lg leading-relaxed font-light grow">
+                    "{testimonial.text}"
+                  </blockquote>
+
+                  {/* Author */}
+                  <div className="flex items-center space-x-4">
+                    <div className="w-12 h-12 bg-teal-600 text-white rounded-t-full rounded-br-full flex items-center justify-center text-sm font-medium tracking-wide">
+                      {testimonial.name[0]}
+                    </div>
+                    <div>
+                      <h4 className="text-slate-900 font-medium text-base tracking-tight">
+                        {testimonial.name}
+                      </h4>
+                      <p className="text-slate-500 text-sm font-light mt-1 tracking-wide">
+                        {testimonial.role}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </motion.div>
             ))}
+          </motion.div>
+
+          {/* Bottom Section */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.6, duration: 0.8 }}
+            className="text-center mt-20 pt-16 border-t border-slate-100"
+          >
+            <p className="text-slate-500 text-sm font-light tracking-wide max-w-md mx-auto">
+              Join hundreds of forward-thinking companies who trust us with
+              their growth
+            </p>
           </motion.div>
         </div>
       </section>
@@ -1068,8 +1105,9 @@ const PsychsphereWebsite = () => {
             className="text-center mb-12 sm:mb-16"
           >
             <p className="text-gray-600 mb-4">FAQ's</p>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900">
-              Frequently asked questions about our services
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-extralight text-slate-900 max-w-4xl mx-auto leading-[1.1] tracking-tight">
+              Frequently asked questions about{" "}
+              <span className="font-light italic">our services</span>
             </h2>
           </motion.div>
 
@@ -1126,8 +1164,9 @@ const PsychsphereWebsite = () => {
             viewport={{ once: true }}
           >
             <p className="text-teal-100 mb-4">Start your journey</p>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-8">
-              Discover your path to emotional well-being and mindful growth
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-extralight text-gray-200 max-w-4xl mx-auto mb-8 leading-[1.1] tracking-tight">
+              Discover your path to emotional well-being and{" "}
+              <span className="font-light italic">mindful</span> growth
             </h2>
             <motion.a
               href="#booking"
@@ -1141,61 +1180,99 @@ const PsychsphereWebsite = () => {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-50 py-12 sm:py-16 px-4 sm:px-6 lg:px-8 border-t border-gray-200">
-        <div className="container mx-auto">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-            <div className="lg:col-span-2">
-              <div className="flex items-center space-x-2 mb-4">
-                <div className="w-10 h-10 bg-teal-700 rounded-lg flex items-center justify-center text-white text-xl font-bold">
-                  P
-                </div>
-                <span className="text-xl font-semibold text-gray-900">
-                  PsychSphere
-                </span>
+      <footer className="bg-white py-20 sm:py-24 px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto max-w-6xl">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 mb-16">
+            {/* Brand Section */}
+            <div className="space-y-8">
+              <div className="flex items-center space-x-3">
+                <motion.p className="text-gray-600 mb-4 sm:mb-6 text-4xl">
+                  {"PsychSphere".split("").map((char, index) => (
+                    <motion.span
+                      key={index}
+                      animate={{
+                        opacity: [0, 1, 1, 0],
+                        y: [20, 0, 0, -20],
+                      }}
+                      transition={{
+                        delay: index * 0.05,
+                        duration: 5,
+                        times: [0, 0.2, 0.8, 1],
+                        repeat: Infinity,
+                        repeatDelay: 1,
+                      }}
+                      style={{ display: "inline-block" }}
+                    >
+                      {char === " " ? "\u00A0" : char}
+                    </motion.span>
+                  ))}
+                </motion.p>
               </div>
-              <p className="text-gray-600 mb-4">
-                Exploring routes to mental well-being through a blend of
-                science, spirituality, and self-awareness.
-              </p>
-              <p className="text-gray-600">
-                A safe space for healing and personal growth, created by Shruti
-                and Muskaan.
-              </p>
+
+              <div className="space-y-6 max-w-md">
+                <p className="text-slate-600 leading-relaxed font-light">
+                  Exploring routes to mental well-being through a blend of
+                  science, spirituality, and self-awareness.
+                </p>
+                <p className="text-slate-500 text-sm font-light leading-relaxed">
+                  A safe space for healing and personal growth, created by
+                  Shruti and Muskaan.
+                </p>
+              </div>
             </div>
 
-            <div>
-              <h4 className="font-semibold text-gray-900 mb-4">Connect</h4>
-              <ul className="space-y-2 text-gray-600">
-                <li>
-                  <a href="#" className="hover:text-teal-700 transition-colors">
-                    Instagram
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-teal-700 transition-colors">
-                    Facebook
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-teal-700 transition-colors">
-                    LinkedIn
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="mailto:hello@psychsphere.com"
-                    className="hover:text-teal-700 transition-colors"
-                  >
-                    Email Us
-                  </a>
-                </li>
-              </ul>
+            {/* Connect Section */}
+            <div className="lg:justify-self-end">
+              <h4 className="text-slate-900 font-medium mb-8 tracking-wide text-sm uppercase">
+                Connect
+              </h4>
+              <nav className="space-y-4">
+                <a
+                  href="#"
+                  className="block text-slate-600 hover:text-slate-900 transition-colors duration-300 font-light"
+                >
+                  Instagram
+                </a>
+                <a
+                  href="#"
+                  className="block text-slate-600 hover:text-slate-900 transition-colors duration-300 font-light"
+                >
+                  Facebook
+                </a>
+                <a
+                  href="#"
+                  className="block text-slate-600 hover:text-slate-900 transition-colors duration-300 font-light"
+                >
+                  LinkedIn
+                </a>
+                <a
+                  href="mailto:hello@psychsphere.com"
+                  className="block text-slate-600 hover:text-slate-900 transition-colors duration-300 font-light"
+                >
+                  Email Us
+                </a>
+              </nav>
             </div>
           </div>
 
-          <div className="border-t border-gray-200 pt-8 text-center text-gray-600">
-            <p>&copy; 2024 PsychSphere. All rights reserved.</p>
+          {/* Bottom Section */}
+          <div className="pt-12 border-t border-slate-100">
+            <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
+              <div className="flex space-x-8 text-sm">
+                <a
+                  href="#"
+                  className="text-slate-500 hover:text-slate-700 transition-colors font-light"
+                >
+                  Privacy
+                </a>
+                <a
+                  href="#"
+                  className="text-slate-500 hover:text-slate-700 transition-colors font-light"
+                >
+                  Terms
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </footer>
