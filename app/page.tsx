@@ -292,73 +292,48 @@ const PsychsphereWebsite = () => {
               </div>
             </motion.div>
 
-            <div className="hidden md:flex items-center space-x-8">
-              <a
-                href="#about"
-                onClick={(e: React.MouseEvent) => {
-                  e.preventDefault();
-                  setActiveSection("about");
-                  document.getElementById("about")?.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start",
-                  });
-                }}
-                className={`transition-colors ${
-                  activeSection === "about"
-                    ? "text-teal-700 text-lg font-semibold"
-                    : "text-gray-700 hover:text-teal-700"
-                }`}
-              >
-                About
-              </a>
-           <Link
-  href="/service"
-  className={`transition-colors ${
-    activeSection === "services"
-      ? "text-teal-700 text-lg font-semibold"
-      : "text-gray-700 hover:text-teal-700"
-  }`}
->
-  Services
-</Link>
+         {/* Desktop Menu */}
+<div className="hidden md:flex items-center space-x-8">
+  <Link
+    href="/about"
+    className={`transition-colors ${
+      activeSection === "about"
+        ? "text-teal-700 text-lg font-semibold"
+        : "text-gray-700 hover:text-teal-700"
+    }`}
+  >
+    About
+  </Link>
 
-              <a
-                href="#founders"
-                onClick={(e: React.MouseEvent) => {
-                  e.preventDefault();
-                  setActiveSection("founders");
-                  document.getElementById("founders")?.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start",
-                  });
-                }}
-                className={`transition-colors ${
-                  activeSection === "founders"
-                    ? "text-teal-700 text-lg font-semibold"
-                    : "text-gray-700 hover:text-teal-700"
-                }`}
-              >
-                Co-Founders
-              </a>
-              <a
-                href="#booking"
-                onClick={(e: React.MouseEvent) => {
-                  e.preventDefault();
-                  setActiveSection("booking");
-                  document.getElementById("booking")?.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start",
-                  });
-                }}
-                className={`transition-colors ${
-                  activeSection === "booking"
-                    ? "text-teal-700 text-lg font-semibold"
-                    : "text-gray-700 hover:text-teal-700"
-                }`}
-              >
-                Book Now
-              </a>
-            </div>
+  <Link
+    href="/service"
+    className={`transition-colors ${
+      activeSection === "services"
+        ? "text-teal-700 text-lg font-semibold"
+        : "text-gray-700 hover:text-teal-700"
+    }`}
+  >
+    Services
+  </Link>
+
+  <a
+    href="/contact"
+    onClick={(e) => {
+      e.preventDefault();
+      document.getElementById("booking")?.scrollIntoView({
+        behavior: "smooth",
+      });
+    }}
+    className={`transition-colors ${
+      activeSection === "booking"
+        ? "text-teal-700 text-lg font-semibold"
+        : "text-gray-700 hover:text-teal-700"
+    }`}
+  >
+    Book Now
+  </a>
+</div>
+
 
             <div className="flex items-center space-x-4">
               <motion.a
@@ -397,18 +372,23 @@ const PsychsphereWebsite = () => {
     </Link>
 
     <Link
-      href="/services"
+      href="/service"
       onClick={() => setMobileMenuOpen(false)}
       className="block py-2 text-teal-700 font-semibold"
     >
       Services
     </Link>
 
-    <Link href="/#founders" onClick={() => setMobileMenuOpen(false)} className="block py-2 text-gray-700">
-      Co-Founders
-    </Link>
+  <Link
+  href="/about"
+  onClick={() => setMobileMenuOpen(false)}
+  className="block py-2 text-gray-700"
+>
+  About
+</Link>
 
-    <Link href="/#booking" onClick={() => setMobileMenuOpen(false)} className="block py-2 text-gray-700">
+
+    <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="block py-2 text-gray-700">
       Book Now
     </Link>
   </motion.div>
