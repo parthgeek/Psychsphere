@@ -146,7 +146,7 @@ const PsychsphereWebsite = () => {
       description:
         "Deep healing work to integrate all parts of yourself with compassion.",
       icon: "/yoga.gif",
-      duration: "75 min",
+      duration: "To be determined",
       category: "Deep Work",
     },
     {
@@ -154,8 +154,16 @@ const PsychsphereWebsite = () => {
       description:
         "Navigate relationship challenges and gain clarity on your connections.",
       icon: "/relationship.gif",
-      duration: "45 minutes",
+      duration: "To be determined",
       category: "Relationships",
+    },
+    {
+      title: "Career counseling",
+      description:
+        "Guidance and support for career decisions and professional growth.",
+      icon: "/path.gif",
+      duration: "To be determined",
+      category: "Career",
     },
   ];
 
