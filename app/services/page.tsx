@@ -40,8 +40,7 @@ const ServicesPage = () => {
       description:
         "A guided practice designed to calm your mind, reduce stress, and restore inner balance through breathwork, awareness, and present-moment grounding.",
       icon: "/mindfulness.gif",
-      whatsappText:
-        "Hi, I want to book a Mindfulness-Based Relaxation session.",
+      whatsappText: "Hi, I want to book a Mindfulness-Based Relaxation session.",
     },
     {
       title: "Vent-Out Session",
@@ -80,16 +79,6 @@ const ServicesPage = () => {
       icon: "/crisis-support.gif",
       whatsappText: "Hi, I want to book an Emotional First Aid Kit session.",
     },
-
-    {
-      title: "Career  Counseling",
-      price: 599,
-      duration: "No Duration",
-      description:
-        "Guidance and support for navigating career transitions, work-related stress, and finding fulfillment in your professional life. We help you align your career path with your values and emotional well-being.  ",
-      icon: "/path.gif",
-      whatsappText: "Hi, I want to book a Career Counseling session.",
-    },
   ];
 
   const relationshipServices = [
@@ -110,7 +99,8 @@ const ServicesPage = () => {
       description:
         "For couples who want to explore their relationship dynamics together — understanding differences, conflict areas, and emotional communication patterns.",
       icon: "/relationship.gif",
-      whatsappText: "Hi, I want to book a Couple Relationship Clarity Session.",
+      whatsappText:
+        "Hi, I want to book a Couple Relationship Clarity Session.",
     },
   ];
 
@@ -194,10 +184,7 @@ const ServicesPage = () => {
               <Link href="/" className="block py-2 text-gray-700">
                 Home
               </Link>
-              <Link
-                href="/services"
-                className="block py-2 text-teal-700 font-semibold"
-              >
+              <Link href="/services" className="block py-2 text-teal-700 font-semibold">
                 Services
               </Link>
               <Link href="/#founders" className="block py-2 text-gray-700">
@@ -243,12 +230,14 @@ const ServicesPage = () => {
               affordable, accessible and flexible — no matter where you are.
             </p>
             <p className="flex items-center justify-center gap-2 text-teal-700 font-medium">
+              <span>💻</span>
               <span>
                 Online sessions are available across India and worldwide, and we
                 make sure to respond promptly when you reach out.
               </span>
             </p>
             <p className="flex items-center justify-center gap-2 text-gray-600">
+              <span>🏠</span>
               <span>
                 Offline sessions will be available soon at our physical center.
               </span>
@@ -298,9 +287,7 @@ const ServicesPage = () => {
                 <div className="flex items-center gap-4 mb-4 text-sm">
                   <div className="flex items-center gap-1 text-teal-700">
                     <IndianRupee size={16} />
-                    <span className="font-semibold text-lg">
-                      {service.price}
-                    </span>
+                    <span className="font-semibold text-lg">{service.price}</span>
                   </div>
                   <div className="flex items-center gap-1 text-gray-600">
                     <Clock size={16} />
@@ -379,9 +366,7 @@ const ServicesPage = () => {
                 <div className="flex items-center gap-4 mb-4 text-sm">
                   <div className="flex items-center gap-1 text-teal-700">
                     <IndianRupee size={16} />
-                    <span className="font-semibold text-lg">
-                      {service.price}
-                    </span>
+                    <span className="font-semibold text-lg">{service.price}</span>
                   </div>
                   <div className="flex items-center gap-1 text-gray-600">
                     <Clock size={16} />

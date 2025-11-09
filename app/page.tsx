@@ -318,7 +318,7 @@ const PsychsphereWebsite = () => {
               </Link>
 
               <Link
-                href="/service"
+                href="/services"
                 className={`transition-colors ${
                   activeSection === "services"
                     ? "text-teal-700 text-lg font-semibold"
@@ -328,22 +328,16 @@ const PsychsphereWebsite = () => {
                 Services
               </Link>
 
-              <a
+               <Link
                 href="/contact"
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.getElementById("booking")?.scrollIntoView({
-                    behavior: "smooth",
-                  });
-                }}
                 className={`transition-colors ${
-                  activeSection === "booking"
+                  activeSection === "contact"
                     ? "text-teal-700 text-lg font-semibold"
                     : "text-gray-700 hover:text-teal-700"
                 }`}
               >
-                Book Now
-              </a>
+                Contact Us
+              </Link>
             </div>
 
             <div className="flex items-center space-x-4">
@@ -386,7 +380,7 @@ const PsychsphereWebsite = () => {
               </Link>
 
               <Link
-                href="/service"
+                href="/services"
                 onClick={() => setMobileMenuOpen(false)}
                 className="block py-2 text-teal-700 font-semibold"
               >
@@ -406,7 +400,7 @@ const PsychsphereWebsite = () => {
                 onClick={() => setMobileMenuOpen(false)}
                 className="block py-2 text-gray-700"
               >
-                Book Now
+                Contact Us
               </Link>
             </motion.div>
           )}
