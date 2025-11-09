@@ -18,7 +18,6 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 
-
 const CountUp: React.FC<{
   end: number;
   suffix?: string;
@@ -82,7 +81,6 @@ const CountUp: React.FC<{
   );
 };
 
-
 const PsychsphereWebsite = () => {
   const [activeSection, setActiveSection] = useState("about");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -108,7 +106,7 @@ const PsychsphereWebsite = () => {
       description:
         "Evidence-based therapeutic approaches tailored to your unique needs and goals.",
       icon: "/mental-health.gif",
-      duration: "60 min",
+      duration: "40–45 minutes",
       category: "Clinical",
     },
     {
@@ -116,7 +114,7 @@ const PsychsphereWebsite = () => {
       description:
         "A safe space to express yourself freely without judgment or pressure.",
       icon: "/relaxed.gif",
-      duration: "45 min",
+      duration: " 25 minutes",
       category: "Support",
     },
     {
@@ -124,7 +122,7 @@ const PsychsphereWebsite = () => {
       description:
         "Guided practices to cultivate present-moment awareness and inner calm.",
       icon: "/mindfulness.gif",
-      duration: "30 min",
+      duration: "25–30 minutes",
       category: "Wellness",
     },
     {
@@ -132,7 +130,7 @@ const PsychsphereWebsite = () => {
       description:
         "Intuitive guidance for self-reflection and exploring life's questions.",
       icon: "/tarot.gif",
-      duration: "45 min",
+      duration: "15 minutes",
       category: "Spiritual",
     },
     {
@@ -148,7 +146,7 @@ const PsychsphereWebsite = () => {
       description:
         "Deep healing work to integrate all parts of yourself with compassion.",
       icon: "/yoga.gif",
-      duration: "75 min",
+      duration: "To be determined",
       category: "Deep Work",
     },
     {
@@ -156,8 +154,16 @@ const PsychsphereWebsite = () => {
       description:
         "Navigate relationship challenges and gain clarity on your connections.",
       icon: "/relationship.gif",
-      duration: "60 min",
+      duration: "To be determined",
       category: "Relationships",
+    },
+    {
+      title: "Career counseling",
+      description:
+        "Guidance and support for career decisions and professional growth.",
+      icon: "/path.gif",
+      duration: "To be determined",
+      category: "Career",
     },
   ];
 
@@ -166,9 +172,12 @@ const PsychsphereWebsite = () => {
       name: "Shruti",
       credentials: "M.Sc. Clinical Psychology",
       specialties: [
-        "Cognitive Behavioral Therapy",
-        "Trauma-Informed Care",
+        "Cognitive Behavioural Therapy",
+        "Tarot guidance",
+        "Couple therapist",
+        "Inner child healing",
         "Mindfulness-Based Interventions",
+        "Humanistic Therapy",
       ],
       bio: "Passionate about creating safe spaces for healing and growth, Shruti brings warmth and evidence-based approaches to every session.",
     },
@@ -176,9 +185,12 @@ const PsychsphereWebsite = () => {
       name: "Muskaan",
       credentials: "M.Sc. Clinical Psychology",
       specialties: [
-        "Humanistic Therapy",
-        "Spiritual Psychology",
-        "Holistic Wellness",
+        "Dialectical Behaviour Therapy",
+        "Relationship guidance",
+        "Career guidance",
+        "Mindfulness and stress management",
+        "Emotional regulation and coping skills",
+        "Anger management",
       ],
       bio: "Muskaan combines traditional therapeutic methods with holistic approaches to support your journey toward wholeness and self-discovery.",
     },
@@ -229,11 +241,11 @@ const PsychsphereWebsite = () => {
       name: "Priya Sharma",
       role: "Marketing Professional",
     },
-    {
-      text: "The co-founders create such a safe and nurturing environment. Their holistic approach helped me heal not just mentally but spiritually too.",
-      name: "Rahul Gupta",
-      role: "Software Engineer",
-    },
+    // {
+    //   text: "The co-founders create such a safe and nurturing environment. Their holistic approach helped me heal not just mentally but spiritually too.",
+    //   name: "Rahul Gupta",
+    //   role: "Software Engineer",
+    // },
     {
       text: "I was amazed by how they seamlessly integrated traditional therapy with mindfulness and tarot guidance. It's exactly what my healing journey needed.",
       name: "Ananya Singh",
@@ -265,7 +277,7 @@ const PsychsphereWebsite = () => {
     {
       question: "Do you offer virtual sessions?",
       answer:
-        "Yes, we offer both in-person and virtual sessions to provide flexible options that fit your lifestyle and comfort level.",
+        "Yes, we offer virtual sessions to provide flexible options that fit your lifestyle and comfort level.",
     },
   ];
 
@@ -292,48 +304,47 @@ const PsychsphereWebsite = () => {
               </div>
             </motion.div>
 
-         {/* Desktop Menu */}
-<div className="hidden md:flex items-center space-x-8">
-  <Link
-    href="/about"
-    className={`transition-colors ${
-      activeSection === "about"
-        ? "text-teal-700 text-lg font-semibold"
-        : "text-gray-700 hover:text-teal-700"
-    }`}
-  >
-    About
-  </Link>
+            {/* Desktop Menu */}
+            <div className="hidden md:flex items-center space-x-8">
+              <Link
+                href="/about"
+                className={`transition-colors ${
+                  activeSection === "about"
+                    ? "text-teal-700 text-lg font-semibold"
+                    : "text-gray-700 hover:text-teal-700"
+                }`}
+              >
+                About
+              </Link>
 
-  <Link
-    href="/service"
-    className={`transition-colors ${
-      activeSection === "services"
-        ? "text-teal-700 text-lg font-semibold"
-        : "text-gray-700 hover:text-teal-700"
-    }`}
-  >
-    Services
-  </Link>
+              <Link
+                href="/service"
+                className={`transition-colors ${
+                  activeSection === "services"
+                    ? "text-teal-700 text-lg font-semibold"
+                    : "text-gray-700 hover:text-teal-700"
+                }`}
+              >
+                Services
+              </Link>
 
-  <a
-    href="/contact"
-    onClick={(e) => {
-      e.preventDefault();
-      document.getElementById("booking")?.scrollIntoView({
-        behavior: "smooth",
-      });
-    }}
-    className={`transition-colors ${
-      activeSection === "booking"
-        ? "text-teal-700 text-lg font-semibold"
-        : "text-gray-700 hover:text-teal-700"
-    }`}
-  >
-    Book Now
-  </a>
-</div>
-
+              <a
+                href="/contact"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById("booking")?.scrollIntoView({
+                    behavior: "smooth",
+                  });
+                }}
+                className={`transition-colors ${
+                  activeSection === "booking"
+                    ? "text-teal-700 text-lg font-semibold"
+                    : "text-gray-700 hover:text-teal-700"
+                }`}
+              >
+                Book Now
+              </a>
+            </div>
 
             <div className="flex items-center space-x-4">
               <motion.a
@@ -363,37 +374,42 @@ const PsychsphereWebsite = () => {
           </div>
 
           {/* Mobile Menu */}
-         
 
-{mobileMenuOpen && (
-  <motion.div className="md:hidden py-4 border-t border-gray-100">
-    <Link href="/" onClick={() => setMobileMenuOpen(false)} className="block py-2 text-gray-700">
-      Home
-    </Link>
+          {mobileMenuOpen && (
+            <motion.div className="md:hidden py-4 border-t border-gray-100">
+              <Link
+                href="/"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block py-2 text-gray-700"
+              >
+                Home
+              </Link>
 
-    <Link
-      href="/service"
-      onClick={() => setMobileMenuOpen(false)}
-      className="block py-2 text-teal-700 font-semibold"
-    >
-      Services
-    </Link>
+              <Link
+                href="/service"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block py-2 text-teal-700 font-semibold"
+              >
+                Services
+              </Link>
 
-  <Link
-  href="/about"
-  onClick={() => setMobileMenuOpen(false)}
-  className="block py-2 text-gray-700"
->
-  About
-</Link>
+              <Link
+                href="/about"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block py-2 text-gray-700"
+              >
+                About
+              </Link>
 
-
-    <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="block py-2 text-gray-700">
-      Book Now
-    </Link>
-  </motion.div>
-)}
-
+              <Link
+                href="/contact"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block py-2 text-gray-700"
+              >
+                Book Now
+              </Link>
+            </motion.div>
+          )}
         </nav>
       </header>
 
@@ -526,7 +542,7 @@ const PsychsphereWebsite = () => {
               space
             </h2>
 
-            <div className="text-lg text-gray-700 space-y-6 text-left max-w-4xl mx-auto">
+            <div className="text-lg text-gray-500 space-y-6 text-center tracking-tighter max-w-4xl mx-auto">
               <p>
                 Here, your mental health journey meets a blend of science,
                 spirituality, and self-awareness. From evidence-based therapy
@@ -561,57 +577,57 @@ const PsychsphereWebsite = () => {
             </div>
 
             {/* Content Side */}
-          <div className="order-1 lg:order-2">
-  {/* Section label */}
-  <div className="flex items-center gap-3 mb-6">
-    <div className="flex-1 h-px bg-gradient-to-r from-transparent via-gray-200 to-gray-200" />
-    <span className="px-4 text-xs font-medium text-gray-400 tracking-[0.15em] uppercase">
-      About Us
-    </span>
-    <div className="flex-1 h-px bg-gradient-to-r from-gray-200 to-transparent" />
-  </div>
+            <div className="order-1 lg:order-2">
+              {/* Section label */}
+              <div className="flex items-center gap-3 mb-6">
+                <div className="flex-1 h-px bg-linear-to-r from-transparent via-gray-200 to-gray-200" />
+                <span className="px-4 text-xs font-medium text-gray-400 tracking-[0.15em] uppercase">
+                  About Us
+                </span>
+                <div className="flex-1 h-px bg-linear-to-r from-gray-200 to-transparent" />
+              </div>
 
-  <h2 className="text-4xl sm:text-5xl md:text-6xl font-extralight text-slate-900 max-w-4xl mx-auto leading-[1.1] tracking-tight">
-    Empowering <span className="font-light italic">growth</span>{" "}
-    and <span className="font-light italic">well-being</span> care.
-  </h2>
+              <h2 className="text-4xl sm:text-5xl md:text-6xl font-extralight text-slate-900 max-w-4xl mx-auto mb-8 leading-[1.1] tracking-tight">
+                Empowering <span className="font-light italic">growth</span> and{" "}
+                <span className="font-light italic">well-being</span> care.
+              </h2>
 
-  <p className="text-lg text-gray-700 mb-8">
-    At our core, we believe in creating a safe, supportive environment where
-    individuals can explore their emotions, overcome challenges, and achieve
-    personal transformation. With a focus on compassion and tailored approaches,
-    we guide you toward clarity, resilience, and a fulfilling life.
-  </p>
+              <p className="text-lg text-gray-500 mb-8 text-center">
+                At our core, we believe in creating a safe, supportive
+                environment where individuals can explore their emotions,
+                overcome challenges, and achieve personal transformation. With a
+                focus on compassion and tailored approaches, we guide you toward
+                clarity, resilience, and a fulfilling life.
+              </p>
 
-  {/* Stats Grid */}
-  <div className="grid grid-cols-2 gap-6">
-    <div>
-      <h3 className="text-4xl sm:text-5xl font-bold text-[#5A8B94] mb-2">
-   <CountUp end={95} suffix="%" />
- </h3>
-      <p className="text-gray-700">Client satisfaction</p>
-    </div>
-    <div>
-     <h3 className="text-4xl sm:text-5xl font-bold text-[#5A8B94] mb-2">
-   <CountUp end={5} suffix="+" />
- </h3>
-      <p className="text-gray-700">Years experience</p>
-    </div>
-    <div>
-      <h3 className="text-4xl sm:text-5xl font-bold text-[#5A8B94] mb-2">
-   <CountUp end={150} suffix="+" />
- </h3>
-      <p className="text-gray-700">Sessions completed</p>
-    </div>
-    <div>
-      <h3 className="text-4xl sm:text-5xl font-bold text-[#5A8B94] mb-2">
-   <CountUp end={85} suffix="%" />
- </h3>
-      <p className="text-gray-700">Improved well-being</p>
-    </div>
-  </div>
-</div>
-
+              {/* Stats Grid */}
+              <div className="grid grid-cols-2 gap-6">
+                <div>
+                  <h3 className="text-4xl sm:text-5xl font-bold text-[#5A8B94] mb-2">
+                    <CountUp end={95} suffix="%" />
+                  </h3>
+                  <p className="text-gray-700">Client satisfaction</p>
+                </div>
+                {/* <div>
+                  <h3 className="text-4xl sm:text-5xl font-bold text-[#5A8B94] mb-2">
+                    <CountUp end={5} suffix="+" />
+                  </h3>
+                  <p className="text-gray-700">Years experience</p>
+                </div> */}
+                {/* <div>
+                  <h3 className="text-4xl sm:text-5xl font-bold text-[#5A8B94] mb-2">
+                    <CountUp end={150} suffix="+" />
+                  </h3>
+                  <p className="text-gray-700">Sessions completed</p>
+                </div> */}
+                <div>
+                  <h3 className="text-4xl sm:text-5xl font-bold text-[#5A8B94] mb-2">
+                    <CountUp end={85} suffix="%" />
+                  </h3>
+                  <p className="text-gray-700">Improved well-being</p>
+                </div>
+              </div>
+            </div>
           </motion.div>
         </div>
       </section>
@@ -671,7 +687,7 @@ const PsychsphereWebsite = () => {
 
                   {/* Elegant list */}
                   <div className="pt-4 border-t border-gray-100">
-                    <div className="space-y-4">
+                    <div className="space-y-2">
                       {founder.specialties.map((specialty, specIdx) => (
                         <div
                           key={specIdx}
@@ -705,7 +721,7 @@ const PsychsphereWebsite = () => {
             viewport={{ once: true }}
             className="text-center mb-12 sm:mb-16"
           >
-           <p className="text-xs font-medium text-gray-400 tracking-[0.25em] uppercase mb-6 relative">
+            <p className="text-xs font-medium text-gray-400 tracking-[0.25em] uppercase mb-6 relative">
               <span className="bg-white px-4 relative z-10">Service</span>
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full h-px bg-linear-to-r from-transparent via-gray-200 to-transparent"></div>
@@ -733,8 +749,9 @@ const PsychsphereWebsite = () => {
               >
                 <div className="flex items-center p-6">
                   {/* Icon Section */}
+                  {/* Icon Section */}
                   <div className="shrink-0 mr-6">
-                    <div className="w-16 h-16  rounded-xl flex items-center justify-center">
+                    <div className="w-16 h-16 rounded-xl flex items-center justify-center">
                       {service.icon.startsWith("/") ? (
                         <img
                           src={service.icon}
@@ -745,6 +762,11 @@ const PsychsphereWebsite = () => {
                         <span className="text-2xl">{service.icon}</span>
                       )}
                     </div>
+                    <div className="text-center mt-2">
+                      <span className="text-xs text-teal-600 font-medium">
+                        {service.duration}
+                      </span>
+                    </div>
                   </div>
 
                   {/* Content Section */}
@@ -753,9 +775,6 @@ const PsychsphereWebsite = () => {
                       <h3 className="text-lg font-semibold text-gray-900 ">
                         {service.title}
                       </h3>
-                      {/* <span className=" text-teal-700 px-2 py-1 rounded-full text-xs font-medium">
-                        {service.duration}
-                      </span> */}
                     </div>
                     <p className="text-gray-600 text-sm mb-3">
                       {service.description}
@@ -788,13 +807,15 @@ const PsychsphereWebsite = () => {
             viewport={{ once: true }}
             className="text-center mb-12 sm:mb-16"
           >
-             <p className="text-xs font-medium text-gray-400 tracking-[0.25em] uppercase mb-6 relative">
-              <span className="bg-white px-4 relative z-10">Why Choose PsychSphere</span>
+            <p className="text-xs font-medium text-gray-400 tracking-[0.25em] uppercase mb-6 relative">
+              <span className="bg-white px-4 relative z-10">
+                Why Choose PsychSphere
+              </span>
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full h-px bg-linear-to-r from-transparent via-gray-200 to-transparent"></div>
               </div>
             </p>
-            
+
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-extralight text-slate-900 max-w-4xl mx-auto leading-[1.1] tracking-tight">
               Key features to enhance your{" "}
               <span className="font-light italic">Journey </span>
@@ -872,7 +893,9 @@ const PsychsphereWebsite = () => {
                   <div className="w-10 h-10  rounded-lg flex items-center justify-center">
                     <Mail className="w-5 h-5 text-teal-700" />
                   </div>
-                  <span className="text-gray-700">hello@psychsphere.com</span>
+                  <span className="text-gray-700">
+                    psychsphereorg@gmail.com
+                  </span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <div className="w-10 h-10  rounded-lg flex items-center justify-center">
@@ -1026,13 +1049,13 @@ const PsychsphereWebsite = () => {
             transition={{ duration: 0.8, ease: [0.25, 0.25, 0, 1] }}
             className="text-center mb-20"
           >
-             <p className="text-xs font-medium text-gray-400 tracking-[0.25em] uppercase mb-6 relative">
+            <p className="text-xs font-medium text-gray-400 tracking-[0.25em] uppercase mb-6 relative">
               <span className="bg-white px-4 relative z-10">Testimonials</span>
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full h-px bg-linear-to-r from-transparent via-gray-200 to-transparent"></div>
               </div>
             </p>
-           
+
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-extralight text-slate-900 max-w-4xl mx-auto leading-[1.1] tracking-tight">
               What our clients say about their{" "}
               <span className="font-light italic">journey</span>
@@ -1045,7 +1068,7 @@ const PsychsphereWebsite = () => {
             initial="initial"
             whileInView="animate"
             viewport={{ once: true }}
-            className="grid grid-cols-1 lg:grid-cols-3 gap-px bg-slate-100"
+            className="grid grid-cols-1 lg:grid-cols-2 gap-px bg-slate-100"
           >
             {testimonials.map((testimonial, idx) => (
               <motion.div
@@ -1121,7 +1144,7 @@ const PsychsphereWebsite = () => {
                 <div className="w-full h-px bg-linear-to-r from-transparent via-gray-200 to-transparent"></div>
               </div>
             </p>
-            
+
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-extralight text-slate-900 max-w-4xl mx-auto leading-[1.1] tracking-tight">
               Frequently asked questions about{" "}
               <span className="font-light italic">our services</span>
@@ -1180,7 +1203,6 @@ const PsychsphereWebsite = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            
             <p className="text-teal-100 mb-4">Start your journey</p>
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-extralight text-gray-200 max-w-4xl mx-auto mb-8 leading-[1.1] tracking-tight">
               Discover your path to emotional well-being and{" "}

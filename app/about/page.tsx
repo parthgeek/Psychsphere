@@ -26,13 +26,13 @@ const AboutPage = () => {
       name: "Shruti Dhir",
       credentials: "M.Sc. Clinical Psychology",
       role: "Co-Founder, PsychSphere",
-      image: "/shruti.jpg", // Replace with actual image path
+      image: "/shruti.jpg", 
     },
     {
       name: "Muskaan Garg",
       credentials: "M.Sc. Clinical Psychology",
       role: "Co-Founder, PsychSphere",
-      image: "/muskaan.jpg", // Replace with actual image path
+      image: "/muskaan.jpg", 
     },
   ];
 
@@ -139,7 +139,7 @@ const AboutPage = () => {
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-teal-50/30 to-white">
+      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-linear-to-b from-teal-50/30 to-white">
         <div className="container mx-auto max-w-5xl">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -147,9 +147,9 @@ const AboutPage = () => {
             transition={{ duration: 0.8 }}
             className="text-center"
           >
-            <div className="inline-flex items-center space-x-2 bg-teal-50 px-4 py-2 rounded-full mb-8">
-              <Sparkles className="w-4 h-4 text-teal-600" />
-              <span className="text-sm text-teal-700 font-medium">
+            <div className="inline-flex items-center space-x-2  px-4 py-2 rounded-full mb-8">
+        
+              <span className="text-sm text-gray-400 font-light tracking-widest">
                 About PsychSphere
               </span>
             </div>
@@ -218,7 +218,7 @@ const AboutPage = () => {
                 Meet the Co-Founders
               </span>
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent"></div>
+                <div className="w-full h-px bg-linear-to-r from-transparent via-gray-200 to-transparent"></div>
               </div>
             </p>
 
@@ -246,9 +246,9 @@ const AboutPage = () => {
               <motion.div
                 key={index}
                 variants={fadeInUp}
-                className="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow duration-300"
+                className="bg-white rounded-2xl overflow-hidden  hover:shadow-lg transition-shadow duration-300"
               >
-                <div className="aspect-square bg-gradient-to-br from-teal-50 to-teal-100 relative overflow-hidden">
+                <div className="aspect-square  relative overflow-hidden">
                   {/* Placeholder for founder image */}
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="w-48 h-48 rounded-full bg-teal-200 flex items-center justify-center">
@@ -357,7 +357,7 @@ const AboutPage = () => {
               <motion.div
                 key={index}
                 variants={fadeInUp}
-                className="bg-gradient-to-br from-teal-50 to-white rounded-2xl p-8 border border-teal-100"
+                className="bg-linear-to-br from-teal-50 to-white rounded-2xl p-8 border border-teal-100"
               >
                 <h3 className="text-2xl font-light text-slate-900 mb-4 tracking-tight">
                   {value.title}
