@@ -51,7 +51,7 @@ const ContactPage = () => {
     {
       icon: "💬",
       question:
-        "I'm not sure which session to book — can you help me decide?",
+        "I'm not sure which session to — can you help me decide?",
       answer:
         "Yes, we can guide you! Just drop us a message and we'll help you choose the right service for your needs.",
     },

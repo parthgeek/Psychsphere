@@ -765,7 +765,7 @@ const PsychsphereWebsite = () => {
                         {service.category}
                       </span>
                       <a
-                        href="#booking"
+                        href="/contact"
                         className="text-teal-600 hover:text-teal-700 text-sm font-medium"
                       >
                         Book Now

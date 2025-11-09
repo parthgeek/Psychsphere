@@ -105,7 +105,7 @@ const ServicesPage = () => {
   ];
 
   const getWhatsAppLink = (text: string) => {
-    const phoneNumber = "919876543210"; // Replace with actual number
+    const phoneNumber = "917357495979"; // WhatsApp business number
     return `https://wa.me/${phoneNumber}?text=${encodeURIComponent(text)}`;
   };
 
