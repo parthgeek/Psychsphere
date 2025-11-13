@@ -25,7 +25,6 @@ const CountUp: React.FC<{
   className?: string;
 }> = ({ end, suffix = "", duration = 1.8, className = "" }) => {
   const ref = useRef<HTMLSpanElement | null>(null);
-  // make sure useInView is imported: useInView(ref, { once: false })
   const inView = useInView(ref, { once: false });
   const [value, setValue] = useState<number>(0);
   const rafRef = useRef<number | null>(null);
@@ -85,6 +84,56 @@ const PsychsphereWebsite = () => {
   const [activeSection, setActiveSection] = useState("about");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+const [bookingLoading, setBookingLoading] = useState(false);
+  // MOVE THE BOOKING FORM STATE AND FUNCTIONS HERE
+  const [bookingForm, setBookingForm] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    preferredService: '',
+    preferredTime: '',
+    message: '',
+  });
+
+  const handleBookingChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  // BUG: setBookingForm(prev => ({ .prev, [e.target.name]: e.target.value }));
+  // REPLACE WITH:
+  const { name, value } = e.target as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
+  setBookingForm(prev => ({ ...prev, [name]: value }));
+};
+
+
+  const handleBookingSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setBookingLoading(true);
+  try {
+    const payload = {
+      name: bookingForm.name,
+      email: bookingForm.email,
+      message: bookingForm.message || `Booking request for ${bookingForm.preferredService}`,
+      phone: bookingForm.phone || '',
+      source: 'main',
+      preferredService: bookingForm.preferredService,
+      preferredTime: bookingForm.preferredTime,
+    };
+
+    const res = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+    setBookingForm({ name: '', phone: '', email: '', preferredService: '', preferredTime: '', message: '' });
+    alert('Booking request sent — we will contact you soon!');
+  } catch (err) {
+    console.error('Booking submit failed', err);
+    alert('Failed to submit booking — please try again later.');
+  } finally {
+    setBookingLoading(false);
+  }
+};
 
   const fadeInUp = {
     initial: { opacity: 0, y: 60 },
@@ -100,6 +149,7 @@ const PsychsphereWebsite = () => {
     },
   };
 
+  
   const services = [
     {
       title: "Therapy Session",
@@ -706,94 +756,7 @@ const PsychsphereWebsite = () => {
           </div>
         </div>
       </section>
-      {/* Services Section */}
-      <section
-        id="services"
-        className="py-12 sm:py-20 px-4 sm:px-6 lg:px-8 bg-gray-50"
-      >
-        <div className="container mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-12 sm:mb-16"
-          >
-            <p className="text-xs font-medium text-gray-400 tracking-[0.25em] uppercase mb-6 relative">
-              <span className="bg-white px-4 relative z-10">Service</span>
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full h-px bg-linear-to-r from-transparent via-gray-200 to-transparent"></div>
-              </div>
-            </p>
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-extralight text-slate-900 max-w-4xl mx-auto leading-[1.1] tracking-tight">
-              Our Holistic <span className="font-light italic">Healing</span>{" "}
-              Services
-            </h2>
-          </motion.div>
-
-          <motion.div
-            variants={staggerContainer}
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
-          >
-            {services.map((service, idx) => (
-              <motion.div
-                key={idx}
-                variants={fadeInUp}
-                whileHover={{ x: 10 }}
-                className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border-l-4 border-teal-500"
-              >
-                <div className="flex items-center p-6">
-                  {/* Icon Section */}
-                  {/* Icon Section */}
-                  <div className="shrink-0 mr-6">
-                    <div className="w-16 h-16 rounded-xl flex items-center justify-center">
-                      {service.icon.startsWith("/") ? (
-                        <img
-                          src={service.icon}
-                          alt={service.title}
-                          className="w-10 h-10 object-contain"
-                        />
-                      ) : (
-                        <span className="text-2xl">{service.icon}</span>
-                      )}
-                    </div>
-                    <div className="text-center mt-2">
-                      <span className="text-xs text-teal-600 font-medium">
-                        {service.duration}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Content Section */}
-                  <div className="flex-1">
-                    <div className="flex items-start justify-between mb-2">
-                      <h3 className="text-lg font-semibold text-gray-900 ">
-                        {service.title}
-                      </h3>
-                    </div>
-                    <p className="text-gray-600 text-sm mb-3">
-                      {service.description}
-                    </p>
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs text-gray-500">
-                        {service.category}
-                      </span>
-                      <a
-                        href="/contact"
-                        className="text-teal-600 hover:text-teal-700 text-sm font-medium"
-                      >
-                        Book Now
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
+      
 
       {/* Features Section */}
       <section className="py-12 sm:py-20 px-4 sm:px-6 lg:px-8">
@@ -884,7 +847,7 @@ const PsychsphereWebsite = () => {
                   <div className="w-10 h-10  rounded-lg flex items-center justify-center">
                     <Phone className="w-5 h-5 text-teal-700" />
                   </div>
-                  <span className="text-gray-700">+91 XXXXX XXXXX</span>
+                  <span className="text-gray-700">+91 86991 49260</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <div className="w-10 h-10  rounded-lg flex items-center justify-center">
@@ -912,123 +875,111 @@ const PsychsphereWebsite = () => {
               className="lg:pl-10"
             >
               <div className="bg-teal-50 rounded-2xl p-8 ">
-                <form className="space-y-10">
-                  {/* Name and Phone */}
-                  <motion.div
-                    className="grid grid-cols-1 md:grid-cols-2 gap-2"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.3 }}
-                  >
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Full Name *
-                      </label>
-                      <motion.input
-                        type="text"
-                        className="w-full px-4 py-2 rounded-sm outline-none focus:ring-1 focus:ring-teal-300 transition-all duration-300 bg-white"
-                        whileFocus={{ scale: 1.02 }}
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Mobile Number *
-                      </label>
-                      <motion.input
-                        type="tel"
-                        className="w-full px-4 py-2 rounded-sm outline-none focus:ring-1 focus:ring-teal-300 transition-all duration-300 bg-white"
-                        whileFocus={{ scale: 1.02 }}
-                        required
-                      />
-                    </div>
-                  </motion.div>
+                <form onSubmit={handleBookingSubmit} className="space-y-10">
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+    <div>
+      <label className="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
+      <input
+        type="text"
+        name="name"
+        value={bookingForm.name}
+        onChange={handleBookingChange}
+        required
+        className="w-full px-4 py-2 rounded-sm outline-none focus:ring-1 focus:ring-teal-300 transition-all duration-300 bg-white"
+      />
+    </div>
+    <div>
+      <label className="block text-sm font-medium text-gray-700 mb-2">Mobile Number *</label>
+      <input
+        type="tel"
+        name="phone"
+        value={bookingForm.phone}
+        onChange={handleBookingChange}
+        required
+        className="w-full px-4 py-2 rounded-sm outline-none focus:ring-1 focus:ring-teal-300 transition-all duration-300 bg-white"
+      />
+    </div>
+  </div>
 
-                  {/* Email */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.4 }}
-                  >
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Email ID
-                    </label>
-                    <motion.input
-                      type="email"
-                      className="w-full px-4 py-2 rounded-sm outline-none focus:ring-1 focus:ring-teal-300 transition-all duration-300 bg-white"
-                      whileFocus={{ scale: 1.02 }}
-                    />
-                  </motion.div>
+  <div>
+    <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
+    <input
+      type="email"
+      name="email"
+      value={bookingForm.email}
+      onChange={handleBookingChange}
+      className="w-full px-4 py-2 rounded-sm outline-none focus:ring-1 focus:ring-teal-300 transition-all duration-300 bg-white"
+    />
+  </div>
 
-                  {/* Service Selection - Simplified */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.5 }}
-                  >
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Preferred Service *
-                    </label>
-                    <motion.select
-                      className="w-full px-4 py-2 rounded-sm outline-none focus:ring-1 focus:ring-teal-300 transition-all duration-300 bg-white"
-                      whileFocus={{ scale: 1.02 }}
-                      required
-                    >
-                      <option value="">Select a service</option>
-                      <option>Therapy Session</option>
-                      <option>Vent-Out Session</option>
-                      <option>Mindfulness-Based Relaxation</option>
-                      <option>Tarot Guidance</option>
-                      <option>Emotional First Aid</option>
-                      <option>Inner Child Healing & Shadow Work</option>
-                      <option>Relationship Clarity Session</option>
-                      <option>Other</option>
-                    </motion.select>
-                  </motion.div>
+  <div>
+    <label className="block text-sm font-medium text-gray-700 mb-2">Preferred Service *</label>
+    <select
+      name="preferredService"
+      value={bookingForm.preferredService}
+      onChange={handleBookingChange}
+      required
+      className="w-full px-4 py-2 rounded-sm outline-none focus:ring-1 focus:ring-teal-300 transition-all duration-300 bg-white"
+    >
+      <option value="">Select a service</option>
+      <option>Therapy Session</option>
+      <option>Vent-Out Session</option>
+      <option>Mindfulness-Based Relaxation</option>
+      <option>Tarot Guidance</option>
+      <option>Emotional First Aid</option>
+      <option>Inner Child Healing & Shadow Work</option>
+      <option>Relationship Clarity Session</option>
+      <option>Other</option>
+    </select>
+  </div>
 
-                  {/* Preferred Time */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.6 }}
-                  >
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Preferred Contact Time
-                    </label>
-                    <motion.select
-                      className="w-full px-4 py-2  rounded-sm outline-none focus:ring-1 focus:ring-teal-300 transition-all duration-300 bg-white"
-                      whileFocus={{ scale: 1.02 }}
-                    >
-                      <option>Morning (9 AM - 12 PM)</option>
-                      <option>Afternoon (12 PM - 5 PM)</option>
-                      <option>Evening (5 PM - 8 PM)</option>
-                    </motion.select>
-                  </motion.div>
+  <div>
+    <label className="block text-sm font-medium text-gray-700 mb-2">Preferred Contact Time</label>
+    <select
+      name="preferredTime"
+      value={bookingForm.preferredTime}
+      onChange={handleBookingChange}
+      className="w-full px-4 py-2 rounded-sm outline-none focus:ring-1 focus:ring-teal-300 transition-all duration-300 bg-white"
+    >
+      <option value="">Select a time</option>
+      <option>Morning (9 AM - 12 PM)</option>
+      <option>Afternoon (12 PM - 5 PM)</option>
+      <option>Evening (5 PM - 8 PM)</option>
+    </select>
+  </div>
 
-                  {/* Submit Button */}
-                  <motion.button
-                    type="submit"
-                    className="w-full bg-teal-600 text-white py-3 px-6 rounded-lg hover:bg-teal-800 transition-all duration-300 font-semibold shadow-lg"
-                    whileHover={{ scale: 1.02, y: -2 }}
-                    whileTap={{ scale: 0.98 }}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.7 }}
-                  >
-                    <motion.span
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 0.8 }}
-                    >
-                      Submit Booking Request
-                    </motion.span>
-                  </motion.button>
-                </form>
+  <div>
+    <label className="block text-sm font-medium text-gray-700 mb-2">Message (optional)</label>
+    <textarea
+      name="message"
+      value={bookingForm.message}
+      onChange={handleBookingChange}
+      rows={4}
+      className="w-full px-4 py-2 rounded-sm outline-none focus:ring-1 focus:ring-teal-300 transition-all duration-300 bg-white"
+      placeholder="Any extra details..."
+    />
+  </div>
+
+  <button
+  type="submit"
+  className={`w-full py-3 px-6 rounded-lg transition-all duration-300 font-semibold shadow-lg ${bookingLoading ? 'bg-teal-500/80 cursor-not-allowed' : 'bg-teal-600 hover:bg-teal-800'}`}
+  disabled={bookingLoading}
+>
+  {bookingLoading ? (
+    <span className="flex items-center justify-center space-x-2">
+      <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none" aria-hidden>
+        <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" strokeOpacity="0.25"></circle>
+        <path d="M22 12a10 10 0 00-10-10" stroke="currentColor" strokeWidth="4" strokeLinecap="round"></path>
+      </svg>
+      <span>Submitting...</span>
+    </span>
+  ) : (
+    'Submit Booking Request'
+  )}
+</button>
+
+</form>
+
               </div>
             </motion.div>
           </div>
@@ -1270,18 +1221,8 @@ const PsychsphereWebsite = () => {
                 >
                   Instagram
                 </a>
-                <a
-                  href="#"
-                  className="block text-slate-600 hover:text-slate-900 transition-colors duration-300 font-light"
-                >
-                  Facebook
-                </a>
-                <a
-                  href="#"
-                  className="block text-slate-600 hover:text-slate-900 transition-colors duration-300 font-light"
-                >
-                  LinkedIn
-                </a>
+              
+               
                 <a
                   href="mailto:hello@psychsphere.com"
                   className="block text-slate-600 hover:text-slate-900 transition-colors duration-300 font-light"
