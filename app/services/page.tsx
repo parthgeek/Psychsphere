@@ -105,7 +105,7 @@ const ServicesPage = () => {
   ];
 
   const getWhatsAppLink = (text: string) => {
-    const phoneNumber = "916283173269"; // WhatsApp business number
+    const phoneNumber = "918699149260"; // WhatsApp business number
     return `https://wa.me/${phoneNumber}?text=${encodeURIComponent(text)}`;
   };
 
@@ -474,12 +474,7 @@ const ServicesPage = () => {
                 >
                   Instagram
                 </a>
-                <a
-                  href="#"
-                  className="block text-slate-600 hover:text-slate-900 transition-colors duration-300 font-light"
-                >
-                  Facebook
-                </a>
+               
                 <a
                   href="mailto:hello@psychsphere.com"
                   className="block text-slate-600 hover:text-slate-900 transition-colors duration-300 font-light"

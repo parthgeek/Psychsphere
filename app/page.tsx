@@ -756,94 +756,7 @@ const [bookingLoading, setBookingLoading] = useState(false);
           </div>
         </div>
       </section>
-      {/* Services Section */}
-      <section
-        id="services"
-        className="py-12 sm:py-20 px-4 sm:px-6 lg:px-8 bg-gray-50"
-      >
-        <div className="container mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-12 sm:mb-16"
-          >
-            <p className="text-xs font-medium text-gray-400 tracking-[0.25em] uppercase mb-6 relative">
-              <span className="bg-white px-4 relative z-10">Service</span>
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full h-px bg-linear-to-r from-transparent via-gray-200 to-transparent"></div>
-              </div>
-            </p>
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-extralight text-slate-900 max-w-4xl mx-auto leading-[1.1] tracking-tight">
-              Our Holistic <span className="font-light italic">Healing</span>{" "}
-              Services
-            </h2>
-          </motion.div>
-
-          <motion.div
-            variants={staggerContainer}
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
-          >
-            {services.map((service, idx) => (
-              <motion.div
-                key={idx}
-                variants={fadeInUp}
-                whileHover={{ x: 10 }}
-                className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border-l-4 border-teal-500"
-              >
-                <div className="flex items-center p-6">
-                  {/* Icon Section */}
-                  {/* Icon Section */}
-                  <div className="shrink-0 mr-6">
-                    <div className="w-16 h-16 rounded-xl flex items-center justify-center">
-                      {service.icon.startsWith("/") ? (
-                        <img
-                          src={service.icon}
-                          alt={service.title}
-                          className="w-10 h-10 object-contain"
-                        />
-                      ) : (
-                        <span className="text-2xl">{service.icon}</span>
-                      )}
-                    </div>
-                    <div className="text-center mt-2">
-                      <span className="text-xs text-teal-600 font-medium">
-                        {service.duration}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Content Section */}
-                  <div className="flex-1">
-                    <div className="flex items-start justify-between mb-2">
-                      <h3 className="text-lg font-semibold text-gray-900 ">
-                        {service.title}
-                      </h3>
-                    </div>
-                    <p className="text-gray-600 text-sm mb-3">
-                      {service.description}
-                    </p>
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs text-gray-500">
-                        {service.category}
-                      </span>
-                      <a
-                        href="/contact"
-                        className="text-teal-600 hover:text-teal-700 text-sm font-medium"
-                      >
-                        Book Now
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
+      
 
       {/* Features Section */}
       <section className="py-12 sm:py-20 px-4 sm:px-6 lg:px-8">
@@ -934,7 +847,7 @@ const [bookingLoading, setBookingLoading] = useState(false);
                   <div className="w-10 h-10  rounded-lg flex items-center justify-center">
                     <Phone className="w-5 h-5 text-teal-700" />
                   </div>
-                  <span className="text-gray-700">+91 XXXXX XXXXX</span>
+                  <span className="text-gray-700">+91 86991 49260</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <div className="w-10 h-10  rounded-lg flex items-center justify-center">
@@ -1308,18 +1221,8 @@ const [bookingLoading, setBookingLoading] = useState(false);
                 >
                   Instagram
                 </a>
-                <a
-                  href="#"
-                  className="block text-slate-600 hover:text-slate-900 transition-colors duration-300 font-light"
-                >
-                  Facebook
-                </a>
-                <a
-                  href="#"
-                  className="block text-slate-600 hover:text-slate-900 transition-colors duration-300 font-light"
-                >
-                  LinkedIn
-                </a>
+              
+               
                 <a
                   href="mailto:hello@psychsphere.com"
                   className="block text-slate-600 hover:text-slate-900 transition-colors duration-300 font-light"

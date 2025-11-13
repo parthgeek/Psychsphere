@@ -445,18 +445,8 @@ const AboutPage = () => {
                 >
                   Instagram
                 </a>
-                <a
-                  href="#"
-                  className="block text-slate-600 hover:text-slate-900 transition-colors duration-300 font-light"
-                >
-                  Facebook
-                </a>
-                <a
-                  href="#"
-                  className="block text-slate-600 hover:text-slate-900 transition-colors duration-300 font-light"
-                >
-                  LinkedIn
-                </a>
+               
+              
                 <a
                   href="mailto:hello@psychsphere.com"
                   className="block text-slate-600 hover:text-slate-900 transition-colors duration-300 font-light"
