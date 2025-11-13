@@ -25,7 +25,6 @@ const CountUp: React.FC<{
   className?: string;
 }> = ({ end, suffix = "", duration = 1.8, className = "" }) => {
   const ref = useRef<HTMLSpanElement | null>(null);
-  // make sure useInView is imported: useInView(ref, { once: false })
   const inView = useInView(ref, { once: false });
   const [value, setValue] = useState<number>(0);
   const rafRef = useRef<number | null>(null);
@@ -85,6 +84,56 @@ const PsychsphereWebsite = () => {
   const [activeSection, setActiveSection] = useState("about");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+const [bookingLoading, setBookingLoading] = useState(false);
+  // MOVE THE BOOKING FORM STATE AND FUNCTIONS HERE
+  const [bookingForm, setBookingForm] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    preferredService: '',
+    preferredTime: '',
+    message: '',
+  });
+
+  const handleBookingChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  // BUG: setBookingForm(prev => ({ .prev, [e.target.name]: e.target.value }));
+  // REPLACE WITH:
+  const { name, value } = e.target as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
+  setBookingForm(prev => ({ ...prev, [name]: value }));
+};
+
+
+  const handleBookingSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setBookingLoading(true);
+  try {
+    const payload = {
+      name: bookingForm.name,
+      email: bookingForm.email,
+      message: bookingForm.message || `Booking request for ${bookingForm.preferredService}`,
+      phone: bookingForm.phone || '',
+      source: 'main',
+      preferredService: bookingForm.preferredService,
+      preferredTime: bookingForm.preferredTime,
+    };
+
+    const res = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+    setBookingForm({ name: '', phone: '', email: '', preferredService: '', preferredTime: '', message: '' });
+    alert('Booking request sent — we will contact you soon!');
+  } catch (err) {
+    console.error('Booking submit failed', err);
+    alert('Failed to submit booking — please try again later.');
+  } finally {
+    setBookingLoading(false);
+  }
+};
 
   const fadeInUp = {
     initial: { opacity: 0, y: 60 },
@@ -100,6 +149,7 @@ const PsychsphereWebsite = () => {
     },
   };
 
+  
   const services = [
     {
       title: "Therapy Session",
@@ -912,123 +962,111 @@ const PsychsphereWebsite = () => {
               className="lg:pl-10"
             >
               <div className="bg-teal-50 rounded-2xl p-8 ">
-                <form className="space-y-10">
-                  {/* Name and Phone */}
-                  <motion.div
-                    className="grid grid-cols-1 md:grid-cols-2 gap-2"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.3 }}
-                  >
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Full Name *
-                      </label>
-                      <motion.input
-                        type="text"
-                        className="w-full px-4 py-2 rounded-sm outline-none focus:ring-1 focus:ring-teal-300 transition-all duration-300 bg-white"
-                        whileFocus={{ scale: 1.02 }}
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Mobile Number *
-                      </label>
-                      <motion.input
-                        type="tel"
-                        className="w-full px-4 py-2 rounded-sm outline-none focus:ring-1 focus:ring-teal-300 transition-all duration-300 bg-white"
-                        whileFocus={{ scale: 1.02 }}
-                        required
-                      />
-                    </div>
-                  </motion.div>
+                <form onSubmit={handleBookingSubmit} className="space-y-10">
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+    <div>
+      <label className="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
+      <input
+        type="text"
+        name="name"
+        value={bookingForm.name}
+        onChange={handleBookingChange}
+        required
+        className="w-full px-4 py-2 rounded-sm outline-none focus:ring-1 focus:ring-teal-300 transition-all duration-300 bg-white"
+      />
+    </div>
+    <div>
+      <label className="block text-sm font-medium text-gray-700 mb-2">Mobile Number *</label>
+      <input
+        type="tel"
+        name="phone"
+        value={bookingForm.phone}
+        onChange={handleBookingChange}
+        required
+        className="w-full px-4 py-2 rounded-sm outline-none focus:ring-1 focus:ring-teal-300 transition-all duration-300 bg-white"
+      />
+    </div>
+  </div>
 
-                  {/* Email */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.4 }}
-                  >
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Email ID
-                    </label>
-                    <motion.input
-                      type="email"
-                      className="w-full px-4 py-2 rounded-sm outline-none focus:ring-1 focus:ring-teal-300 transition-all duration-300 bg-white"
-                      whileFocus={{ scale: 1.02 }}
-                    />
-                  </motion.div>
+  <div>
+    <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
+    <input
+      type="email"
+      name="email"
+      value={bookingForm.email}
+      onChange={handleBookingChange}
+      className="w-full px-4 py-2 rounded-sm outline-none focus:ring-1 focus:ring-teal-300 transition-all duration-300 bg-white"
+    />
+  </div>
 
-                  {/* Service Selection - Simplified */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.5 }}
-                  >
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Preferred Service *
-                    </label>
-                    <motion.select
-                      className="w-full px-4 py-2 rounded-sm outline-none focus:ring-1 focus:ring-teal-300 transition-all duration-300 bg-white"
-                      whileFocus={{ scale: 1.02 }}
-                      required
-                    >
-                      <option value="">Select a service</option>
-                      <option>Therapy Session</option>
-                      <option>Vent-Out Session</option>
-                      <option>Mindfulness-Based Relaxation</option>
-                      <option>Tarot Guidance</option>
-                      <option>Emotional First Aid</option>
-                      <option>Inner Child Healing & Shadow Work</option>
-                      <option>Relationship Clarity Session</option>
-                      <option>Other</option>
-                    </motion.select>
-                  </motion.div>
+  <div>
+    <label className="block text-sm font-medium text-gray-700 mb-2">Preferred Service *</label>
+    <select
+      name="preferredService"
+      value={bookingForm.preferredService}
+      onChange={handleBookingChange}
+      required
+      className="w-full px-4 py-2 rounded-sm outline-none focus:ring-1 focus:ring-teal-300 transition-all duration-300 bg-white"
+    >
+      <option value="">Select a service</option>
+      <option>Therapy Session</option>
+      <option>Vent-Out Session</option>
+      <option>Mindfulness-Based Relaxation</option>
+      <option>Tarot Guidance</option>
+      <option>Emotional First Aid</option>
+      <option>Inner Child Healing & Shadow Work</option>
+      <option>Relationship Clarity Session</option>
+      <option>Other</option>
+    </select>
+  </div>
 
-                  {/* Preferred Time */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.6 }}
-                  >
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Preferred Contact Time
-                    </label>
-                    <motion.select
-                      className="w-full px-4 py-2  rounded-sm outline-none focus:ring-1 focus:ring-teal-300 transition-all duration-300 bg-white"
-                      whileFocus={{ scale: 1.02 }}
-                    >
-                      <option>Morning (9 AM - 12 PM)</option>
-                      <option>Afternoon (12 PM - 5 PM)</option>
-                      <option>Evening (5 PM - 8 PM)</option>
-                    </motion.select>
-                  </motion.div>
+  <div>
+    <label className="block text-sm font-medium text-gray-700 mb-2">Preferred Contact Time</label>
+    <select
+      name="preferredTime"
+      value={bookingForm.preferredTime}
+      onChange={handleBookingChange}
+      className="w-full px-4 py-2 rounded-sm outline-none focus:ring-1 focus:ring-teal-300 transition-all duration-300 bg-white"
+    >
+      <option value="">Select a time</option>
+      <option>Morning (9 AM - 12 PM)</option>
+      <option>Afternoon (12 PM - 5 PM)</option>
+      <option>Evening (5 PM - 8 PM)</option>
+    </select>
+  </div>
 
-                  {/* Submit Button */}
-                  <motion.button
-                    type="submit"
-                    className="w-full bg-teal-600 text-white py-3 px-6 rounded-lg hover:bg-teal-800 transition-all duration-300 font-semibold shadow-lg"
-                    whileHover={{ scale: 1.02, y: -2 }}
-                    whileTap={{ scale: 0.98 }}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.7 }}
-                  >
-                    <motion.span
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 0.8 }}
-                    >
-                      Submit Booking Request
-                    </motion.span>
-                  </motion.button>
-                </form>
+  <div>
+    <label className="block text-sm font-medium text-gray-700 mb-2">Message (optional)</label>
+    <textarea
+      name="message"
+      value={bookingForm.message}
+      onChange={handleBookingChange}
+      rows={4}
+      className="w-full px-4 py-2 rounded-sm outline-none focus:ring-1 focus:ring-teal-300 transition-all duration-300 bg-white"
+      placeholder="Any extra details..."
+    />
+  </div>
+
+  <button
+  type="submit"
+  className={`w-full py-3 px-6 rounded-lg transition-all duration-300 font-semibold shadow-lg ${bookingLoading ? 'bg-teal-500/80 cursor-not-allowed' : 'bg-teal-600 hover:bg-teal-800'}`}
+  disabled={bookingLoading}
+>
+  {bookingLoading ? (
+    <span className="flex items-center justify-center space-x-2">
+      <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none" aria-hidden>
+        <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" strokeOpacity="0.25"></circle>
+        <path d="M22 12a10 10 0 00-10-10" stroke="currentColor" strokeWidth="4" strokeLinecap="round"></path>
+      </svg>
+      <span>Submitting...</span>
+    </span>
+  ) : (
+    'Submit Booking Request'
+  )}
+</button>
+
+</form>
+
               </div>
             </motion.div>
           </div>

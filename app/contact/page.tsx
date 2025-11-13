@@ -12,15 +12,20 @@ import {
   Send,
   Sparkles,
 } from "lucide-react";
+import { p } from "framer-motion/client";
 
 const ContactPage = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
+  const [contactLoading, setContactLoading] = useState(false);
+ const [formData, setFormData] = useState({
+  name: "",
+  email: "",
+  message: "",
+  phone: "",
+  preferredService: "",
+  preferredTime: "",
+});
 
   const fadeInUp = {
     initial: { opacity: 0, y: 60 },
@@ -64,20 +69,53 @@ const ContactPage = () => {
     },
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle form submission
-    console.log("Form submitted:", formData);
-  };
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setContactLoading(true);
+  try {
+    const payload = {
+      name: formData.name,
+      email: formData.email,
+      message: formData.message,
+      phone: formData.phone || '',
+      preferredService: formData.preferredService,
+      preferredTime: formData.preferredTime,
+      source: 'contact'
+    };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
+    const res = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
     });
-  };
+
+    if (!res.ok) {
+      const txt = await res.text().catch(() => '');
+      throw new Error(`HTTP ${res.status} ${txt}`);
+    }
+
+    setFormData({
+      name: '',
+      email: '',
+      message: '',
+      phone: '',
+      preferredService: '',
+      preferredTime: ''
+    });
+    alert('Message sent — we will get back to you soon!');
+  } catch (err) {
+    console.error('Send contact failed', err);
+    alert('Failed to send message. Please try again later.');
+  } finally {
+    setContactLoading(false);
+  }
+};
+
+
+ const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const { name, value } = e.target as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
+  setFormData(prev => ({ ...prev, [name]: value }));
+};
 
   return (
     <div className="min-h-screen bg-white">
@@ -358,6 +396,24 @@ const ContactPage = () => {
                       placeholder="Enter your name"
                     />
                   </div>
+{/* Phone */}
+<div>
+  <label
+    htmlFor="phone"
+    className="block text-sm font-medium text-slate-700 mb-2"
+  >
+    Mobile Number
+  </label>
+  <input
+    type="tel"
+    id="phone"
+    name="phone"
+    value={formData.phone}
+    onChange={handleChange}
+    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 transition-all outline-none font-light"
+    placeholder="Enter your phone number"
+  />
+</div>
 
                   <div>
                     <label
@@ -377,7 +433,55 @@ const ContactPage = () => {
                       placeholder="your@email.com"
                     />
                   </div>
+<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+  <div>
+    <label
+      htmlFor="preferredService"
+      className="block text-sm font-medium text-slate-700 mb-2"
+    >
+      Preferred Service
+    </label>
+    <select
+      id="preferredService"
+      name="preferredService"
+      value={formData.preferredService}
+      onChange={handleChange}
+      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 transition-all outline-none font-light"
+    >
+      <option value="">Select a service</option>
+      <option>Therapy Session</option>
+      <option>Vent-Out Session</option>
+      <option>Mindfulness-Based Relaxation</option>
+      <option>Tarot Guidance</option>
+      <option>Emotional First Aid</option>
+      <option>Inner Child Healing & Shadow Work</option>
+      <option>Relationship Clarity Session</option>
+      <option>Career Counseling</option>
+      <option>Other</option>
+    </select>
+  </div>
 
+  <div>
+    <label
+      htmlFor="preferredTime"
+      className="block text-sm font-medium text-slate-700 mb-2"
+    >
+      Preferred Contact Time
+    </label>
+    <select
+      id="preferredTime"
+      name="preferredTime"
+      value={formData.preferredTime}
+      onChange={handleChange}
+      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 transition-all outline-none font-light"
+    >
+      <option value="">Select a time</option>
+      <option>Morning (9 AM - 12 PM)</option>
+      <option>Afternoon (12 PM - 5 PM)</option>
+      <option>Evening (5 PM - 8 PM)</option>
+    </select>
+  </div>
+</div>
                   <div>
                     <label
                       htmlFor="message"
@@ -398,14 +502,28 @@ const ContactPage = () => {
                   </div>
 
                   <motion.button
-                    type="submit"
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="w-full bg-teal-700 text-white px-6 py-4 rounded-lg hover:bg-teal-800 transition-colors font-medium flex items-center justify-center space-x-2"
-                  >
-                    <span>Send Message</span>
-                    <Send className="w-4 h-4" />
-                  </motion.button>
+  type="submit"
+  whileHover={{ scale: contactLoading ? 1 : 1.02 }}
+  whileTap={{ scale: contactLoading ? 1 : 0.98 }}
+  className={`w-full px-6 py-4 rounded-lg transition-colors font-medium flex items-center justify-center space-x-2 ${contactLoading ? 'bg-teal-600/80 cursor-not-allowed' : 'bg-teal-700 hover:bg-teal-800 text-white'}`}
+  disabled={contactLoading}
+>
+  {contactLoading ? (
+    <span className="flex items-center space-x-2">
+      <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none" aria-hidden>
+        <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" strokeOpacity="0.25"></circle>
+        <path d="M22 12a10 10 0 00-10-10" stroke="currentColor" strokeWidth="4" strokeLinecap="round"></path>
+      </svg>
+      <span>Sending...</span>
+    </span>
+  ) : (
+    <>
+      <span>Send Message</span>
+      <Send className="w-4 h-4" />
+    </>
+  )}
+</motion.button>
+
                 </form>
               </div>
             </motion.div>
