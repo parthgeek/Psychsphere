@@ -50,8 +50,7 @@ const ContactPage = () => {
     },
     {
       icon: "💬",
-      question:
-        "I'm not sure which session to — can you help me decide?",
+      question: "I'm not sure which session to — can you help me decide?",
       answer:
         "Yes, we can guide you! Just drop us a message and we'll help you choose the right service for your needs.",
     },
@@ -231,7 +230,6 @@ const ContactPage = () => {
                 <div className="space-y-6">
                   {/* Email */}
                   <motion.a
-                    href="mailto:psychsphereorg@gmail.com"
                     whileHover={{ x: 5 }}
                     className="flex items-start space-x-4 p-6 bg-white rounded-xl border border-gray-200 hover:border-teal-200 hover:shadow-md transition-all duration-300 group"
                   >
@@ -250,7 +248,6 @@ const ContactPage = () => {
 
                   {/* Instagram */}
                   <motion.a
-                    href="https://instagram.com/psychsphereorg"
                     target="_blank"
                     rel="noopener noreferrer"
                     whileHover={{ x: 5 }}
@@ -271,7 +268,6 @@ const ContactPage = () => {
 
                   {/* WhatsApp */}
                   <motion.a
-                    href="https://wa.me/your-number"
                     target="_blank"
                     rel="noopener noreferrer"
                     whileHover={{ x: 5 }}
