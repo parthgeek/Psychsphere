@@ -80,6 +80,16 @@ const ServicesPage = () => {
       icon: "/crisis-support.gif",
       whatsappText: "Hi, I want to book an Emotional First Aid Kit session.",
     },
+
+    {
+      title: "Career  Counseling",
+      price: 599,
+      duration: "No Duration",
+      description:
+        "Guidance and support for navigating career transitions, work-related stress, and finding fulfillment in your professional life. We help you align your career path with your values and emotional well-being.  ",
+      icon: "/path.gif",
+      whatsappText: "Hi, I want to book a Career Counseling session.",
+    },
   ];
 
   const relationshipServices = [
@@ -105,7 +115,7 @@ const ServicesPage = () => {
   ];
 
   const getWhatsAppLink = (text: string) => {
-    const phoneNumber = "916283173269"; // WhatsApp business number
+    const phoneNumber = "919876543210"; // Replace with actual number
     return `https://wa.me/${phoneNumber}?text=${encodeURIComponent(text)}`;
   };
 
@@ -233,14 +243,12 @@ const ServicesPage = () => {
               affordable, accessible and flexible — no matter where you are.
             </p>
             <p className="flex items-center justify-center gap-2 text-teal-700 font-medium">
-              <span>💻</span>
               <span>
                 Online sessions are available across India and worldwide, and we
                 make sure to respond promptly when you reach out.
               </span>
             </p>
             <p className="flex items-center justify-center gap-2 text-gray-600">
-              <span>🏠</span>
               <span>
                 Offline sessions will be available soon at our physical center.
               </span>

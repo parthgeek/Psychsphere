@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Menu, X, Sparkles } from "lucide-react";
-
+import Image from "next/image";
 const AboutPage = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -26,13 +26,13 @@ const AboutPage = () => {
       name: "Shruti Dhir",
       credentials: "M.Sc. Clinical Psychology",
       role: "Co-Founder, PsychSphere",
-      image: "/shruti.jpg", 
+      image: "/f1.jpeg",
     },
     {
       name: "Muskaan Garg",
       credentials: "M.Sc. Clinical Psychology",
       role: "Co-Founder, PsychSphere",
-      image: "/muskaan.jpg", 
+      image: "/f2.jpeg",
     },
   ];
 
@@ -148,7 +148,6 @@ const AboutPage = () => {
             className="text-center"
           >
             <div className="inline-flex items-center space-x-2  px-4 py-2 rounded-full mb-8">
-        
               <span className="text-sm text-gray-400 font-light tracking-widest">
                 About PsychSphere
               </span>
@@ -242,45 +241,39 @@ const AboutPage = () => {
             viewport={{ once: true }}
             className="grid md:grid-cols-2 gap-8 lg:gap-12 max-w-5xl mx-auto"
           >
-            {founders.map((founder, index) => (
-              <motion.div
-                key={index}
-                variants={fadeInUp}
-                className="bg-white rounded-2xl overflow-hidden  hover:shadow-lg transition-shadow duration-300"
-              >
-                <div className="aspect-square  relative overflow-hidden">
-                  {/* Placeholder for founder image */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-48 h-48 rounded-full bg-teal-200 flex items-center justify-center">
-                      <span className="text-6xl text-teal-700 font-light">
-                        {founder.name.split(" ")[0][0]}
-                        {founder.name.split(" ")[1][0]}
-                      </span>
-                    </div>
-                  </div>
-                  {/* When you have actual images, replace the above with:
-                  <Image
-                    src={founder.image}
-                    alt={founder.name}
-                    fill
-                    className="object-cover"
-                  />
-                  */}
-                </div>
+           {founders.map((founder, index) => (
+  <motion.div
+    key={index}
+    variants={fadeInUp}
+    className="bg-white rounded-2xl overflow-hidden hover:shadow-lg transition-shadow duration-300"
+  >
+    <div className="aspect-square relative overflow-hidden">
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="w-48 h-48 rounded-full overflow-hidden relative">
+          <Image
+            src={founder.image}
+            alt={founder.name}
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
+        </div>
+      </div>
+    </div>
 
-                <div className="p-8 text-center">
-                  <h3 className="text-2xl font-light text-slate-900 mb-2 tracking-tight">
-                    {founder.name}
-                  </h3>
-                  <p className="text-teal-700 font-medium mb-1">
-                    {founder.credentials}
-                  </p>
-                  <p className="text-slate-500 text-sm font-light">
-                    {founder.role}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
+    <div className="p-8 text-center">
+      <h3 className="text-2xl font-light text-slate-900 mb-2 tracking-tight">
+        {founder.name}
+      </h3>
+      <p className="text-teal-700 font-medium mb-1">
+        {founder.credentials}
+      </p>
+      <p className="text-slate-500 text-sm font-light">
+        {founder.role}
+      </p>
+    </div>
+  </motion.div>
+))}
           </motion.div>
 
           {/* Credentials Section */}
@@ -293,10 +286,13 @@ const AboutPage = () => {
           >
             <div className="text-center space-y-6">
               <p className="text-lg text-slate-700 font-light leading-relaxed">
-                Both of us hold an <span className="font-medium">M.Sc. in Clinical Psychology</span> and have
-                earned various certifications across multiple therapeutic and
-                wellness modalities, ensuring that every service we offer is
-                grounded in knowledge, empathy, and authenticity.
+                Both of us hold an{" "}
+                <span className="font-medium">
+                  M.Sc. in Clinical Psychology
+                </span>{" "}
+                and have earned various certifications across multiple
+                therapeutic and wellness modalities, ensuring that every service
+                we offer is grounded in knowledge, empathy, and authenticity.
               </p>
 
               <div className="pt-6 border-t border-gray-100">
@@ -325,8 +321,7 @@ const AboutPage = () => {
             className="text-center mb-16"
           >
             <h2 className="text-4xl sm:text-5xl font-extralight text-slate-900 max-w-3xl mx-auto leading-[1.1] tracking-tight">
-              Our approach to{" "}
-              <span className="font-light italic">healing</span>
+              Our approach to <span className="font-light italic">healing</span>
             </h2>
           </motion.div>
 

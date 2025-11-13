@@ -328,7 +328,7 @@ const PsychsphereWebsite = () => {
                 Services
               </Link>
 
-               <Link
+              <Link
                 href="/contact"
                 className={`transition-colors ${
                   activeSection === "contact"
@@ -654,12 +654,15 @@ const PsychsphereWebsite = () => {
 
                 <div className="relative z-10">
                   {/* Premium Avatar */}
+                  {/* Premium Avatar */}
                   <div className="flex justify-center mb-6">
                     <div className="relative">
-                      <div className="w-24 h-24 bg-linear-to-br from-white to-gray-50 rounded-full flex items-center justify-center  transition-all duration-500">
-                        <span className="text-2xl font-light text-gray-700 tracking-wider">
-                          {founder.name[0]}
-                        </span>
+                      <div className="w-24 h-24 rounded-full overflow-hidden transition-all duration-500">
+                        <img
+                          src={idx === 0 ? "/f1.jpeg" : "/f2.jpeg"}
+                          alt={founder.name}
+                          className="w-full h-full object-cover"
+                        />
                       </div>
                       <div className="absolute -inset-2 rounded-full border border-teal-200 opacity-0 group-hover:opacity-100 transition-all duration-500 animate-pulse"></div>
                     </div>
