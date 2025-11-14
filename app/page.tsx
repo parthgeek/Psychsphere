@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
-
+import Navbar from "@/components/NavBar"; 
 import {
   Menu,
   X,
@@ -81,8 +81,8 @@ const CountUp: React.FC<{
 };
 
 const PsychsphereWebsite = () => {
-  const [activeSection, setActiveSection] = useState("about");
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 const [bookingLoading, setBookingLoading] = useState(false);
   // MOVE THE BOOKING FORM STATE AND FUNCTIONS HERE
@@ -334,128 +334,7 @@ const [bookingLoading, setBookingLoading] = useState(false);
   return (
     <div className="min-h-screen bg-white scroll-smooth">
       {/* Header */}
-      <header className="fixed top-0 w-full bg-white/95 backdrop-blur-sm z-50 py-4">
-        <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16 sm:h-20">
-            {/* Logo */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="flex items-center"
-            >
-              <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-lg overflow-hidden flex items-center justify-center">
-                <Image
-                  src="/logo.jpeg"
-                  alt="Logo"
-                  width="112"
-                  height="112"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </motion.div>
-
-            {/* Desktop Menu */}
-            <div className="hidden md:flex items-center space-x-8">
-              <Link
-                href="/about"
-                className={`transition-colors ${
-                  activeSection === "about"
-                    ? "text-teal-700 text-lg font-semibold"
-                    : "text-gray-700 hover:text-teal-700"
-                }`}
-              >
-                About
-              </Link>
-
-              <Link
-                href="/services"
-                className={`transition-colors ${
-                  activeSection === "services"
-                    ? "text-teal-700 text-lg font-semibold"
-                    : "text-gray-700 hover:text-teal-700"
-                }`}
-              >
-                Services
-              </Link>
-
-              <Link
-                href="/contact"
-                className={`transition-colors ${
-                  activeSection === "contact"
-                    ? "text-teal-700 text-lg font-semibold"
-                    : "text-gray-700 hover:text-teal-700"
-                }`}
-              >
-                Contact Us
-              </Link>
-            </div>
-
-            <div className="flex items-center space-x-4">
-              <motion.a
-                href="#booking"
-                onClick={(e: React.MouseEvent) => {
-                  e.preventDefault();
-                  document.getElementById("booking")?.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start",
-                  });
-                }}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="hidden sm:block bg-teal-700 text-white px-6 py-2.5 rounded-lg hover:bg-teal-800 transition-colors"
-              >
-                Book Session
-              </motion.a>
-
-              {/* Mobile Menu Button */}
-              <button
-                className="md:hidden text-gray-700"
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              >
-                {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-              </button>
-            </div>
-          </div>
-
-          {/* Mobile Menu */}
-
-          {mobileMenuOpen && (
-            <motion.div className="md:hidden py-4 border-t border-gray-100">
-              <Link
-                href="/"
-                onClick={() => setMobileMenuOpen(false)}
-                className="block py-2 text-gray-700"
-              >
-                Home
-              </Link>
-
-              <Link
-                href="/services"
-                onClick={() => setMobileMenuOpen(false)}
-                className="block py-2 text-teal-700 font-semibold"
-              >
-                Services
-              </Link>
-
-              <Link
-                href="/about"
-                onClick={() => setMobileMenuOpen(false)}
-                className="block py-2 text-gray-700"
-              >
-                About
-              </Link>
-
-              <Link
-                href="/contact"
-                onClick={() => setMobileMenuOpen(false)}
-                className="block py-2 text-gray-700"
-              >
-                Contact Us
-              </Link>
-            </motion.div>
-          )}
-        </nav>
-      </header>
+     <Navbar />
 
       {/* Hero Section */}
       <section className="pt-24 sm:pt-32 pb-12 sm:pb-20 px-4 sm:px-6 lg:px-8">
@@ -1216,7 +1095,7 @@ const [bookingLoading, setBookingLoading] = useState(false);
               </h4>
               <nav className="space-y-4">
                 <a
-                  href="#"
+               
                   className="block text-slate-600 hover:text-slate-900 transition-colors duration-300 font-light"
                 >
                   Instagram
@@ -1224,7 +1103,7 @@ const [bookingLoading, setBookingLoading] = useState(false);
               
                
                 <a
-                  href="mailto:hello@psychsphere.com"
+                  
                   className="block text-slate-600 hover:text-slate-900 transition-colors duration-300 font-light"
                 >
                   Email Us

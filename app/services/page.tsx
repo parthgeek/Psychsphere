@@ -1,12 +1,11 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
-import { Menu, X, Clock, IndianRupee, MessageCircle } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
+import {  Clock, IndianRupee, MessageCircle } from "lucide-react";
 
+import Navbar from "@/components/NavBar";
 const ServicesPage = () => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
 
   const fadeInUp = {
     initial: { opacity: 0, y: 60 },
@@ -112,94 +111,7 @@ const ServicesPage = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <header className="fixed top-0 w-full bg-white/95 backdrop-blur-sm z-50 py-4">
-        <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16 sm:h-20">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="flex items-center"
-            >
-              <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-lg overflow-hidden flex items-center justify-center">
-                <Image
-                  src="/logo.jpeg"
-                  alt="Logo"
-                  width="112"
-                  height="112"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </motion.div>
-
-            <div className="hidden md:flex items-center space-x-8">
-              <Link
-                href="/"
-                className="text-gray-700 hover:text-teal-700 transition-colors"
-              >
-                Home
-              </Link>
-              <Link
-                href="/services"
-                className="text-teal-700 text-lg font-semibold"
-              >
-                Services
-              </Link>
-              <Link
-                href="/#founders"
-                className="text-gray-700 hover:text-teal-700 transition-colors"
-              >
-                Co-Founders
-              </Link>
-              <Link
-                href="/#booking"
-                className="text-gray-700 hover:text-teal-700 transition-colors"
-              >
-                Book Now
-              </Link>
-            </div>
-
-            <div className="flex items-center space-x-4">
-              <Link
-                href="/#booking"
-                className="hidden sm:block bg-teal-700 text-white px-6 py-2.5 rounded-lg hover:bg-teal-800 transition-colors"
-              >
-                Book Session
-              </Link>
-
-              <button
-                className="md:hidden text-gray-700"
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              >
-                {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-              </button>
-            </div>
-          </div>
-
-          {mobileMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="md:hidden py-4 border-t border-gray-100"
-            >
-              <Link href="/" className="block py-2 text-gray-700">
-                Home
-              </Link>
-              <Link
-                href="/services"
-                className="block py-2 text-teal-700 font-semibold"
-              >
-                Services
-              </Link>
-              <Link href="/#founders" className="block py-2 text-gray-700">
-                Co-Founders
-              </Link>
-              <Link href="/#booking" className="block py-2 text-gray-700">
-                Book Now
-              </Link>
-            </motion.div>
-          )}
-        </nav>
-      </header>
+       <Navbar />
 
       {/* Hero Section */}
       <section className="pt-32 sm:pt-40 pb-12 sm:pb-16 px-4 sm:px-6 lg:px-8">
