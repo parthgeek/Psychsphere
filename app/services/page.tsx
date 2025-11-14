@@ -32,6 +32,7 @@ const ServicesPage = () => {
       whatsappText: "Hi, I want to book a Therapy Session.",
       featured: true,
     },
+   
     {
       title: "Mindfulness-Based Relaxation",
       price: 499,
@@ -78,6 +79,15 @@ const ServicesPage = () => {
         "A quick, practical session to manage overwhelming emotions in the moment. Learn self-soothing techniques, coping strategies, and grounding practices you can carry into your everyday life for emotional stability.",
       icon: "/crisis-support.gif",
       whatsappText: "Hi, I want to book an Emotional First Aid Kit session.",
+    },
+      {
+      title: "Career counselling Session",
+      price: 300,
+      duration: "30 minutes",
+     
+      icon: "/path.gif",
+      whatsappText: "Hi, I want to book a Therapy Session.",
+      featured: true,
     },
   ];
 
