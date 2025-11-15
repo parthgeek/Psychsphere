@@ -16,7 +16,7 @@ import {
 import { p } from "framer-motion/client";
 
 const ContactPage = () => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [contactLoading, setContactLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -229,7 +229,7 @@ const ContactPage = () => {
                         WhatsApp
                       </h3>
                       <p className="text-slate-600 font-light">
-                        Send us a message
+                        +91 86991 49260
                       </p>
                     </div>
                   </motion.a>
@@ -245,7 +245,7 @@ const ContactPage = () => {
                     <div>
                       <h3 className="font-medium text-slate-900 mb-1">Phone</h3>
                       <p className="text-slate-600 font-light">
-                        Contact number to be added
+                        +91 86991 49260
                       </p>
                     </div>
                   </motion.div>
