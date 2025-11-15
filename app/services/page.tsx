@@ -82,7 +82,7 @@ const ServicesPage = () => {
     },
       {
       title: "Career counselling Session",
-      price: 300,
+      price: 599,
       duration: "30 minutes",
      
       icon: "/path.gif",
