@@ -1,0 +1,566 @@
+"use client";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import Navbar from "@/components/NavBar";
+import Footer from "@/components/Footer";
+import {
+  Menu,
+  X,
+  Mail,
+  Instagram,
+  MessageCircle,
+  Phone,
+  Send,
+  Sparkles,
+} from "lucide-react";
+import { p } from "framer-motion/client";
+
+const ContactPage = () => {
+  
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [contactLoading, setContactLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+    phone: "",
+    preferredService: "",
+    preferredTime: "",
+  });
+
+  const fadeInUp = {
+    initial: { opacity: 0, y: 60 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.6 },
+  };
+
+  const staggerContainer = {
+    animate: {
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const contactFaqs = [
+    {
+      icon: "🔒",
+      question: "Are the sessions confidential?",
+      answer:
+        "Absolutely. Your comfort, privacy, and trust are our top priorities.",
+    },
+    {
+      icon: "⏱️",
+      question: "How long does it take to get a reply after filling the form?",
+      answer: "We usually respond within a few hours.",
+    },
+    {
+      icon: "💬",
+      question: "I'm not sure which session to — can you help me decide?",
+      answer:
+        "Yes, we can guide you! Just drop us a message and we'll help you choose the right service for your needs.",
+    },
+    {
+      icon: "❤️",
+      question:
+        'Can I book a "vent-out" session just to talk, even if I don\'t want therapy?',
+      answer:
+        "Definitely. Our vent-out sessions are designed exactly for that — a safe, judgment-free space to release and express.",
+    },
+  ];
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setContactLoading(true);
+    try {
+      const payload = {
+        name: formData.name,
+        email: formData.email,
+        message: formData.message,
+        phone: formData.phone || "",
+        preferredService: formData.preferredService,
+        preferredTime: formData.preferredTime,
+        source: "contact",
+      };
+
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) {
+        const txt = await res.text().catch(() => "");
+        throw new Error(`HTTP ${res.status} ${txt}`);
+      }
+
+      setFormData({
+        name: "",
+        email: "",
+        message: "",
+        phone: "",
+        preferredService: "",
+        preferredTime: "",
+      });
+      alert("Message sent — we will get back to you soon!");
+    } catch (err) {
+      console.error("Send contact failed", err);
+      alert("Failed to send message. Please try again later.");
+    } finally {
+      setContactLoading(false);
+    }
+  };
+
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
+    const { name, value } = e.target as
+      | HTMLInputElement
+      | HTMLTextAreaElement
+      | HTMLSelectElement;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  return (
+    <div className="min-h-screen bg-white">
+      {/* Navigation */}
+     <Navbar/>
+
+      {/* Hero Section */}
+      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-teal-50/30 to-white">
+        <div className="container mx-auto max-w-5xl">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center"
+          >
+            <div className="inline-flex items-center space-x-2 bg-teal-50 px-4 py-2 rounded-full mb-8">
+              <Mail className="w-4 h-4 text-teal-600" />
+              <span className="text-sm text-teal-700 font-medium">
+                Get in Touch
+              </span>
+            </div>
+
+            <h1 className="text-5xl sm:text-6xl md:text-7xl font-extralight text-slate-900 mb-8 leading-[1.1] tracking-tight">
+              We'd love to{" "}
+              <span className="font-light italic">hear from you</span>
+            </h1>
+
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto font-light leading-relaxed">
+              Whether you have a question, need guidance, or simply wish to
+              begin your healing journey — we're here for you. Reach out and
+              let's take the first step together.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Contact Information & Form Section */}
+      <section id="booking" className="scroll-mt-32 py-20 px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto max-w-6xl">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
+            {/* Contact Details */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="space-y-8"
+            >
+              <div>
+                <h2 className="text-3xl sm:text-4xl font-light text-slate-900 mb-8 tracking-tight">
+                  Contact Details
+                </h2>
+
+                <div className="space-y-6">
+                  {/* Email */}
+                  <motion.a
+                    whileHover={{ x: 5 }}
+                    className="flex items-start space-x-4 p-6 bg-white rounded-xl border border-gray-200 hover:border-teal-200 hover:shadow-md transition-all duration-300 group"
+                  >
+                    <div className="w-12 h-12 bg-teal-50 rounded-lg flex items-center justify-center shrink-0 group-hover:bg-teal-100 transition-colors">
+                      <Mail className="w-5 h-5 text-teal-600" />
+                    </div>
+                    <div>
+                      <h3 className="font-medium text-slate-900 mb-1">
+                        Email Us
+                      </h3>
+                      <p className="text-slate-600 font-light">
+                        psychsphereorg@gmail.com
+                      </p>
+                    </div>
+                  </motion.a>
+
+                  {/* Instagram */}
+                  <motion.a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ x: 5 }}
+                    className="flex items-start space-x-4 p-6 bg-white rounded-xl border border-gray-200 hover:border-teal-200 hover:shadow-md transition-all duration-300 group"
+                  >
+                    <div className="w-12 h-12 bg-teal-50 rounded-lg flex items-center justify-center shrink-0 group-hover:bg-teal-100 transition-colors">
+                      <Instagram className="w-5 h-5 text-teal-600" />
+                    </div>
+                    <div>
+                      <h3 className="font-medium text-slate-900 mb-1">
+                        Instagram
+                      </h3>
+                      <p className="text-slate-600 font-light">
+                        @psychsphereorg
+                      </p>
+                    </div>
+                  </motion.a>
+
+                  {/* WhatsApp */}
+                  <motion.a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ x: 5 }}
+                    className="flex items-start space-x-4 p-6 bg-white rounded-xl border border-gray-200 hover:border-teal-200 hover:shadow-md transition-all duration-300 group"
+                  >
+                    <div className="w-12 h-12 bg-teal-50 rounded-lg flex items-center justify-center shrink-0 group-hover:bg-teal-100 transition-colors">
+                      <MessageCircle className="w-5 h-5 text-teal-600" />
+                    </div>
+                    <div>
+                      <h3 className="font-medium text-slate-900 mb-1">
+                        WhatsApp
+                      </h3>
+                      <p className="text-slate-600 font-light">
+                        +91 86991 49260
+                      </p>
+                    </div>
+                  </motion.a>
+
+                  {/* Phone */}
+                  <motion.div
+                    whileHover={{ x: 5 }}
+                    className="flex items-start space-x-4 p-6 bg-white rounded-xl border border-gray-200 hover:border-teal-200 hover:shadow-md transition-all duration-300 group"
+                  >
+                    <div className="w-12 h-12 bg-teal-50 rounded-lg flex items-center justify-center shrink-0 group-hover:bg-teal-100 transition-colors">
+                      <Phone className="w-5 h-5 text-teal-600" />
+                    </div>
+                    <div>
+                      <h3 className="font-medium text-slate-900 mb-1">Phone</h3>
+                      <p className="text-slate-600 font-light">
+                        +91 86991 49260
+                      </p>
+                    </div>
+                  </motion.div>
+                </div>
+              </div>
+
+              {/* Closing Note */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+                className="bg-gradient-to-br from-teal-50 to-white p-8 rounded-2xl border border-teal-100"
+              >
+                <Sparkles className="w-6 h-6 text-teal-600 mb-4" />
+                <p className="text-slate-700 font-light leading-relaxed mb-4">
+                  "Every message we receive is treated with care and
+                  confidentiality.
+                </p>
+                <p className="text-slate-700 font-light leading-relaxed">
+                  Your journey matters — and we're honored to be part of it."
+                </p>
+              </motion.div>
+            </motion.div>
+
+            {/* Contact Form */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <div className="bg-white rounded-2xl border border-gray-200 p-8 sm:p-10 shadow-sm">
+                <h2 className="text-2xl font-light text-slate-900 mb-6 tracking-tight">
+                  Send us a message
+                </h2>
+
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div>
+                    <label
+                      htmlFor="name"
+                      className="block text-sm font-medium text-slate-700 mb-2"
+                    >
+                      Your Name
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 transition-all outline-none font-light"
+                      placeholder="Enter your name"
+                    />
+                  </div>
+                  {/* Phone */}
+                  <div>
+                    <label
+                      htmlFor="phone"
+                      className="block text-sm font-medium text-slate-700 mb-2"
+                    >
+                      Mobile Number
+                    </label>
+                    <input
+                      type="tel"
+                      id="phone"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 transition-all outline-none font-light"
+                      placeholder="Enter your phone number"
+                    />
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="email"
+                      className="block text-sm font-medium text-slate-700 mb-2"
+                    >
+                      Email Address
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 transition-all outline-none font-light"
+                      placeholder="your@email.com"
+                    />
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <label
+                        htmlFor="preferredService"
+                        className="block text-sm font-medium text-slate-700 mb-2"
+                      >
+                        Preferred Service
+                      </label>
+                      <select
+                        id="preferredService"
+                        name="preferredService"
+                        value={formData.preferredService}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 transition-all outline-none font-light"
+                      >
+                        <option value="">Select a service</option>
+                        <option>Therapy Session</option>
+                        <option>Vent-Out Session</option>
+                        <option>Mindfulness-Based Relaxation</option>
+                        <option>Tarot Guidance</option>
+                        <option>Emotional First Aid</option>
+                        <option>Inner Child Healing & Shadow Work</option>
+                        <option>Relationship Clarity Session</option>
+                        <option>Career Counseling</option>
+                        <option>Other</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label
+                        htmlFor="preferredTime"
+                        className="block text-sm font-medium text-slate-700 mb-2"
+                      >
+                        Preferred Contact Time
+                      </label>
+                      <select
+                        id="preferredTime"
+                        name="preferredTime"
+                        value={formData.preferredTime}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 transition-all outline-none font-light"
+                      >
+                        <option value="">Select a time</option>
+                        <option>Morning (9 AM - 12 PM)</option>
+                        <option>Afternoon (12 PM - 5 PM)</option>
+                        <option>Evening (5 PM - 8 PM)</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="message"
+                      className="block text-sm font-medium text-slate-700 mb-2"
+                    >
+                      Your Message
+                    </label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      required
+                      rows={6}
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 transition-all outline-none resize-none font-light"
+                      placeholder="Tell us how we can help you..."
+                    />
+                  </div>
+
+                  <motion.button
+                    type="submit"
+                    whileHover={{ scale: contactLoading ? 1 : 1.02 }}
+                    whileTap={{ scale: contactLoading ? 1 : 0.98 }}
+                    className={`w-full px-6 py-4 rounded-lg transition-colors font-medium flex items-center justify-center space-x-2 ${
+                      contactLoading
+                        ? "bg-teal-600/80 cursor-not-allowed"
+                        : "bg-teal-700 hover:bg-teal-800 text-white"
+                    }`}
+                    disabled={contactLoading}
+                  >
+                    {contactLoading ? (
+                      <span className="flex items-center space-x-2">
+                        <svg
+                          className="animate-spin w-4 h-4"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          aria-hidden
+                        >
+                          <circle
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                            strokeOpacity="0.25"
+                          ></circle>
+                          <path
+                            d="M22 12a10 10 0 00-10-10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                            strokeLinecap="round"
+                          ></path>
+                        </svg>
+                        <span>Sending...</span>
+                      </span>
+                    ) : (
+                      <>
+                        <span>Send Message</span>
+                        <Send className="w-4 h-4" />
+                      </>
+                    )}
+                  </motion.button>
+                </form>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div className="container mx-auto max-w-4xl">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <p className="text-xs font-medium text-gray-400 tracking-[0.25em] uppercase mb-6 relative">
+              <span className="bg-gray-50 px-4 relative z-10">
+                Common Questions
+              </span>
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent"></div>
+              </div>
+            </p>
+
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-extralight text-slate-900 max-w-4xl mx-auto leading-[1.1] tracking-tight">
+              Wondering about{" "}
+              <span className="font-light italic">something?</span>
+            </h2>
+          </motion.div>
+
+          <motion.div
+            variants={staggerContainer}
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
+            className="space-y-4"
+          >
+            {contactFaqs.map((faq, idx) => (
+              <motion.div
+                key={idx}
+                variants={fadeInUp}
+                className="bg-white rounded-xl overflow-hidden border border-gray-200"
+              >
+                <button
+                  onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
+                  className="w-full flex items-start justify-between p-6 text-left hover:bg-gray-50 transition-colors"
+                >
+                  <div className="flex items-start space-x-4 pr-8">
+                    <span className="text-2xl shrink-0">{faq.icon}</span>
+                    <span className="text-lg font-medium text-gray-900">
+                      {faq.question}
+                    </span>
+                  </div>
+                  <div
+                    className={`shrink-0 w-8 h-8 rounded-full bg-teal-700 text-white flex items-center justify-center transition-transform ${
+                      openFaq === idx ? "rotate-45" : ""
+                    }`}
+                  >
+                    <span className="text-xl">+</span>
+                  </div>
+                </button>
+                {openFaq === idx && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    className="px-6 pb-6 pl-16"
+                  >
+                    <p className="text-gray-700 font-light leading-relaxed">
+                      {faq.answer}
+                    </p>
+                  </motion.div>
+                )}
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-teal-700 text-white">
+        <div className="container mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <p className="text-teal-100 mb-4 font-light">
+              Ready to take the first step?
+            </p>
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-extralight text-gray-200 max-w-4xl mx-auto mb-8 leading-[1.1] tracking-tight">
+              Your healing journey{" "}
+              <span className="font-light italic">begins here</span>
+            </h2>
+            <motion.a
+              href="#booking"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="inline-block bg-white text-teal-700 px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors font-semibold"
+            >
+              Book Your First Session
+            </motion.a>
+          </motion.div>
+        </div>
+      </section>
+
+      <Footer />
+    </div>
+  );
+};
+
+export default ContactPage;
