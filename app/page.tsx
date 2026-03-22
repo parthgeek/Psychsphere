@@ -269,7 +269,7 @@ const [bookingLoading, setBookingLoading] = useState(false);
     {
       title: "Qualified Professionals",
       description:
-        "Both co-founders hold M.Sc. in Clinical Psychology with certifications across multiple therapeutic modalities.",
+        "Our team brings advanced academic training and hands-on clinical expertise, ensuring you receive care grounded in both science and compassion.",
       icon: "/badge.gif",
     },
     {
@@ -545,12 +545,12 @@ const [bookingLoading, setBookingLoading] = useState(false);
           <div className="container mx-auto max-w-6xl">
             {/* Refined Header */}
             <motion.div className="text-center mb-20">
-              <p className="text-xs font-medium text-gray-400 tracking-[0.25em] uppercase mb-6 relative">
+              <div className="text-xs font-medium text-gray-400 tracking-[0.25em] uppercase mb-6 relative">
                 <span className="bg-white px-4 relative z-10">Leadership</span>
                 <div className="absolute inset-0 flex items-center">
                   <div className="w-full h-px bg-linear-to-r from-transparent via-gray-200 to-transparent"></div>
                 </div>
-              </p>
+              </div>
 
               <h2 className="text-4xl sm:text-5xl md:text-6xl font-extralight text-slate-900 max-w-4xl mx-auto leading-[1.1] tracking-tight">
                 Meet Our <em className="italic font-normal">Co-Founders</em>
@@ -633,14 +633,14 @@ const [bookingLoading, setBookingLoading] = useState(false);
             viewport={{ once: true }}
             className="text-center mb-12 sm:mb-16"
           >
-            <p className="text-xs font-medium text-gray-400 tracking-[0.25em] uppercase mb-6 relative">
+            <div className="text-xs font-medium text-gray-400 tracking-[0.25em] uppercase mb-6 relative">
               <span className="bg-white px-4 relative z-10">
                 Why Choose PsychSphere
               </span>
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full h-px bg-linear-to-r from-transparent via-gray-200 to-transparent"></div>
               </div>
-            </p>
+            </div>
 
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-extralight text-slate-900 max-w-4xl mx-auto leading-[1.1] tracking-tight">
               Key features to enhance your{" "}
@@ -863,12 +863,12 @@ const [bookingLoading, setBookingLoading] = useState(false);
             transition={{ duration: 0.8, ease: [0.25, 0.25, 0, 1] }}
             className="text-center mb-20"
           >
-            <p className="text-xs font-medium text-gray-400 tracking-[0.25em] uppercase mb-6 relative">
+            <div className="text-xs font-medium text-gray-400 tracking-[0.25em] uppercase mb-6 relative">
               <span className="bg-white px-4 relative z-10">Testimonials</span>
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full h-px bg-linear-to-r from-transparent via-gray-200 to-transparent"></div>
               </div>
-            </p>
+            </div>
 
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-extralight text-slate-900 max-w-4xl mx-auto leading-[1.1] tracking-tight">
               What our clients say about their{" "}
@@ -952,12 +952,12 @@ const [bookingLoading, setBookingLoading] = useState(false);
             viewport={{ once: true }}
             className="text-center mb-12 sm:mb-16"
           >
-            <p className="text-xs font-medium text-gray-400 tracking-[0.25em] uppercase mb-6 relative">
+            <div className="text-xs font-medium text-gray-400 tracking-[0.25em] uppercase mb-6 relative">
               <span className="bg-white px-4 relative z-10">FAQ's</span>
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full h-px bg-linear-to-r from-transparent via-gray-200 to-transparent"></div>
               </div>
-            </p>
+            </div>
 
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-extralight text-slate-900 max-w-4xl mx-auto leading-[1.1] tracking-tight">
               Frequently asked questions about{" "}

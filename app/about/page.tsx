@@ -29,6 +29,11 @@ const AboutPage = () => {
 
   const team = [
     {
+      name: "Muskaan",
+      role: "Senior Psychologist",
+      credentials: "M.Sc. Clinical Psychology",
+    },
+    {
       name: "Dolly",
       role: "Psychologist",
       credentials: "M.Sc. Clinical Psychology",
@@ -43,12 +48,38 @@ const AboutPage = () => {
       role: "Junior Psychologist",
       credentials: "B.Sc. Psychology (Hons.)",
     },
+  ];
+
+  const roleChronology = [
     {
-      name: "Muskaan",
-      role: "Senior Psychologist",
-      credentials: "M.Sc. Clinical Psychology",
+      title: "Senior Psychologist",
+      description:
+        "Provides senior clinical guidance and supports more complex therapeutic needs.",
+    },
+    {
+      title: "Psychologist",
+      description:
+        "Leads therapy sessions, assessments, and ongoing emotional support for clients.",
+    },
+    {
+      title: "Junior Psychologist",
+      description:
+        "Supports the care process while building strong clinical foundations and experience.",
     },
   ];
+
+  const roleOrder = roleChronology.reduce<Record<string, number>>(
+    (accumulator, role, index) => {
+      accumulator[role.title] = index;
+      return accumulator;
+    },
+    {}
+  );
+
+  const orderedTeam = [...team].sort(
+    (firstMember, secondMember) =>
+      roleOrder[firstMember.role] - roleOrder[secondMember.role]
+  );
 
   return (
     <div className="min-h-screen bg-white">
@@ -102,18 +133,17 @@ const AboutPage = () => {
               </div>
 
               <div className="space-y-6 text-slate-600 font-light leading-relaxed">
-                <p className="text-lg">
-                  From evidence-based therapy sessions to intuitive tarot
-                  guidance, from mindfulness practices to emotional first aid,
-                  PsychSphere brings together diverse approaches to nurture your
-                  mental and emotional well-being.
-                </p>
-
-                <p className="text-lg">
-                  PsychSphere is your metaphorical space to pause, reflect, and
-                  reconnect with yourself — a space where healing feels human,
-                  gentle, and whole.
-                </p>
+                {[
+                  "From evidence-based therapy sessions to intuitive tarot guidance, from mindfulness practices to emotional first aid, PsychSphere brings together diverse approaches to nurture your mental and emotional well-being.",
+                  "PsychSphere is your metaphorical space to pause, reflect, and reconnect with yourself — a space where healing feels human, gentle, and whole.",
+                ].map((text, i) => (
+                  <div key={i} className="flex gap-5 items-start">
+                    <span className="text-2xl font-extralight text-teal-200 leading-none flex-shrink-0 mt-1">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <p className="text-lg">{text}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </motion.div>
@@ -129,14 +159,14 @@ const AboutPage = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <p className="text-xs font-medium text-gray-400 tracking-[0.25em] uppercase mb-6 relative">
+            <div className="text-xs font-medium text-gray-400 tracking-[0.25em] uppercase mb-6 relative">
               <span className="bg-gray-50 px-4 relative z-10">
                 Meet Our Founder
               </span>
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full h-px bg-linear-to-r from-transparent via-gray-200 to-transparent"></div>
               </div>
-            </p>
+            </div>
           </motion.div>
 
           <motion.div
@@ -166,39 +196,62 @@ const AboutPage = () => {
             className="mt-20"
           >
             <div className="text-center mb-12">
-              <p className="text-xs font-medium text-gray-400 tracking-[0.25em] uppercase mb-6 relative">
+              <div className="text-xs font-medium text-gray-400 tracking-[0.25em] uppercase mb-6 relative">
                 <span className="bg-gray-50 px-4 relative z-10">
                   Meet Our Team
                 </span>
                 <div className="absolute inset-0 flex items-center">
                   <div className="w-full h-px bg-linear-to-r from-transparent via-gray-200 to-transparent"></div>
                 </div>
-              </p>
+              </div>
             </div>
 
-            <motion.div
-              variants={staggerContainer}
-              initial="initial"
-              whileInView="animate"
-              viewport={{ once: true }}
-              className="grid md:grid-cols-2 xl:grid-cols-4 gap-6"
-            >
-              {team.map((member) => (
-                <motion.div
-                  key={member.name}
-                  variants={fadeInUp}
-                  className="bg-white rounded-2xl border border-gray-200 p-8 shadow-sm text-center"
-                >
-                  <h3 className="text-2xl font-light text-slate-900 tracking-tight mb-3">
-                    {member.name}
-                  </h3>
-                  <p className="text-teal-700 font-medium mb-2">{member.role}</p>
-                  <p className="text-slate-600 font-light leading-relaxed">
-                    {member.credentials}
-                  </p>
-                </motion.div>
-              ))}
-            </motion.div>
+            {/* Vertical Timeline */}
+            <div className="relative max-w-3xl mx-auto">
+              <div className="absolute left-8 top-0 bottom-0 w-px bg-teal-100" />
+              {roleChronology.map((role, index) => {
+                const membersAtRole = orderedTeam.filter(
+                  (m) => m.role === role.title
+                );
+                return (
+                  <motion.div
+                    key={role.title}
+                    variants={fadeInUp}
+                    className="relative flex gap-8 mb-14 last:mb-0"
+                  >
+                    <div className="relative z-10 flex-shrink-0 w-16 h-16 rounded-full bg-teal-700 text-white flex items-center justify-center shadow-md">
+                      <span className="text-2xl font-light">
+                        {index + 1}
+                      </span>
+                    </div>
+
+                    <div className="flex-1 pt-1">
+                      <h4 className="text-xl font-light text-slate-900 tracking-tight mb-1">
+                        {role.title}
+                      </h4>
+                      <p className="text-sm text-slate-500 font-light mb-4 leading-relaxed">
+                        {role.description}
+                      </p>
+                      <div className="flex flex-wrap gap-3">
+                        {membersAtRole.map((member) => (
+                          <div
+                            key={member.name}
+                            className="bg-white rounded-xl border border-teal-100 px-5 py-3 shadow-sm"
+                          >
+                            <p className="text-slate-900 font-light">
+                              {member.name}
+                            </p>
+                            <p className="text-xs text-teal-700 mt-0.5">
+                              {member.credentials}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
           </motion.div>
         </div>
       </section>
@@ -226,16 +279,19 @@ const AboutPage = () => {
           >
             {[
               {
+                step: "01",
                 title: "Evidence-Based",
                 description:
                   "Grounded in scientific research and proven therapeutic approaches",
               },
               {
+                step: "02",
                 title: "Holistic",
                 description:
                   "Integrating traditional therapy with spiritual and alternative healing",
               },
               {
+                step: "03",
                 title: "Compassionate",
                 description:
                   "Creating a safe, non-judgmental space for your journey",
@@ -246,6 +302,9 @@ const AboutPage = () => {
                 variants={fadeInUp}
                 className="bg-linear-to-br from-teal-50 to-white rounded-2xl p-8 border border-teal-100"
               >
+                <span className="text-5xl font-extralight text-teal-200 mb-4 block leading-none">
+                  {value.step}
+                </span>
                 <h3 className="text-2xl font-light text-slate-900 mb-4 tracking-tight">
                   {value.title}
                 </h3>
@@ -268,7 +327,7 @@ const AboutPage = () => {
           >
             <p className="text-teal-100 mb-4 font-light">Ready to begin?</p>
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-extralight text-gray-200 max-w-4xl mx-auto mb-8 leading-[1.1] tracking-tight">
-              Let's start your journey to{" "}
+              Let&apos;s start your journey to{" "}
               <span className="font-light italic">wellness</span> together
             </h2>
             <motion.a

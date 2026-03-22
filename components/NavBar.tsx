@@ -56,6 +56,7 @@ const Navbar = () => {
                   alt="Logo"
                   width="112"
                   height="112"
+                  priority
                   className="w-full h-full object-cover"
                 />
               </div>

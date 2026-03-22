@@ -238,14 +238,14 @@ const ServicesPage = () => {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <p className="text-xs font-medium text-gray-400 tracking-[0.25em] uppercase mb-6 relative">
+            <div className="text-xs font-medium text-gray-400 tracking-[0.25em] uppercase mb-6 relative">
               <span className="bg-gray-50 px-4 relative z-10">
                 Relationship Support
               </span>
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full h-px bg-linear-to-r from-transparent via-gray-200 to-transparent"></div>
               </div>
-            </p>
+            </div>
 
             <h2 className="text-4xl sm:text-5xl font-extralight text-slate-900 max-w-3xl mx-auto leading-[1.1] tracking-tight">
               Relationship{" "}
