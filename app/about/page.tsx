@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Navbar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 
@@ -32,21 +33,33 @@ const AboutPage = () => {
       name: "Muskaan",
       role: "Senior Psychologist",
       credentials: "M.Sc. Clinical Psychology",
+      image: "/Muskan Garg.png",
+      facePosition: "50% 20%",
+      faceScale: "scale-[1.4]",
     },
     {
       name: "Dolly",
       role: "Psychologist",
       credentials: "M.Sc. Clinical Psychology",
+      image: "/Dolly Alimkar.png",
+      facePosition: "50% 5%",
+      faceScale: "scale-[1.5]",
     },
     {
       name: "Harshita",
       role: "Psychologist",
       credentials: "M.Sc. Clinical Psychology",
+      image: "/Harshita.png",
+      facePosition: "50% 5%",
+      faceScale: "scale-[1.5]",
     },
     {
       name: "Nashika",
       role: "Junior Psychologist",
       credentials: "B.Sc. Psychology (Hons.)",
+      image: "/Nashika thakur.png",
+      facePosition: "50% 10%",
+      faceScale: "scale-[1.5]",
     },
   ];
 
@@ -176,6 +189,16 @@ const AboutPage = () => {
             className="max-w-4xl mx-auto"
           >
             <div className="bg-white rounded-2xl border border-gray-200 p-8 sm:p-12 shadow-sm text-center">
+              <div className="flex justify-center mb-8">
+                <div className="relative w-40 h-48 rounded-2xl overflow-hidden shadow-md">
+                  <Image
+                    src="/shruti.png"
+                    alt={founder.name}
+                    fill
+                    className="object-cover object-top"
+                  />
+                </div>
+              </div>
               <h2 className="text-3xl sm:text-4xl font-light text-slate-900 tracking-tight mb-3">
                 {founder.name}
               </h2>
@@ -206,51 +229,39 @@ const AboutPage = () => {
               </div>
             </div>
 
-            {/* Vertical Timeline */}
-            <div className="relative max-w-3xl mx-auto">
-              <div className="absolute left-8 top-0 bottom-0 w-px bg-teal-100" />
-              {roleChronology.map((role, index) => {
-                const membersAtRole = orderedTeam.filter(
-                  (m) => m.role === role.title
-                );
-                return (
-                  <motion.div
-                    key={role.title}
-                    variants={fadeInUp}
-                    className="relative flex gap-8 mb-14 last:mb-0"
-                  >
-                    <div className="relative z-10 flex-shrink-0 w-16 h-16 rounded-full bg-teal-700 text-white flex items-center justify-center shadow-md">
-                      <span className="text-2xl font-light">
-                        {index + 1}
-                      </span>
-                    </div>
-
-                    <div className="flex-1 pt-1">
-                      <h4 className="text-xl font-light text-slate-900 tracking-tight mb-1">
-                        {role.title}
-                      </h4>
-                      <p className="text-sm text-slate-500 font-light mb-4 leading-relaxed">
-                        {role.description}
-                      </p>
-                      <div className="flex flex-wrap gap-3">
-                        {membersAtRole.map((member) => (
-                          <div
-                            key={member.name}
-                            className="bg-white rounded-xl border border-teal-100 px-5 py-3 shadow-sm"
-                          >
-                            <p className="text-slate-900 font-light">
-                              {member.name}
-                            </p>
-                            <p className="text-xs text-teal-700 mt-0.5">
-                              {member.credentials}
-                            </p>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </motion.div>
-                );
-              })}
+            {/* Team Grid */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-5 max-w-3xl mx-auto">
+              {orderedTeam.map((member, index) => (
+                <motion.div
+                  key={member.name}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="flex flex-col items-center gap-3"
+                >
+                  <div className="relative w-24 h-24 rounded-full overflow-hidden border-2 border-teal-100 shadow-md flex-shrink-0">
+                    <Image
+                      src={member.image}
+                      alt={member.name}
+                      fill
+                      className="object-cover object-top scale-[1.8]"
+                      style={{ objectPosition: "50% 15%" }}
+                    />
+                  </div>
+                  <div className="text-center">
+                    <p className="text-slate-900 font-medium text-sm">
+                      {member.name}
+                    </p>
+                    <p className="text-xs text-teal-600 font-medium mt-0.5">
+                      {member.role}
+                    </p>
+                    <p className="text-xs text-slate-400 font-light mt-0.5">
+                      {member.credentials}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
             </div>
           </motion.div>
         </div>

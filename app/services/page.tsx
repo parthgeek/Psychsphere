@@ -47,7 +47,7 @@ const ServicesPage = () => {
     {
       title: "Vent-Out Session",
       price: 499,
-      duration: "25 minutes",
+      duration: "30 minutes",
       description:
         "A safe and judgment-free space to release whatever you've been holding in. Sometimes, you don't need advice — you just need to be heard. These sessions help you express emotions freely and feel lighter.",
       icon: "/relaxed.gif",
@@ -65,7 +65,7 @@ const ServicesPage = () => {
     {
       title: "Inner Child Healing & Shadow Work",
       price: 699,
-      duration: "To be determined",
+      duration: "40–45 minutes",
       description:
         "Transformative sessions focused on healing deep-rooted emotional wounds, reconnecting with your inner child, and integrating your shadow self — helping you reclaim wholeness and self-compassion.",
       icon: "/yoga.gif",
@@ -84,7 +84,7 @@ const ServicesPage = () => {
       {
       title: "Career counselling Session",
       price: 699,
-      duration: "30 minutes",
+      duration: "40–45 minutes",
      
       icon: "/path.gif",
       whatsappText: "Hi, I want to book a Career counselling Session.",
@@ -105,7 +105,7 @@ const ServicesPage = () => {
     },
     {
       title: "Couple Relationship Clarity Session",
-      price: 799,
+      price: 999,
       duration: "80 minutes",
       description:
         "For couples who want to explore their relationship dynamics together — understanding differences, conflict areas, and emotional communication patterns.",

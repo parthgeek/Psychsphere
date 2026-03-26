@@ -165,7 +165,7 @@ const [bookingLoading, setBookingLoading] = useState(false);
       description:
         "A safe space to express yourself freely without judgment or pressure.",
       icon: "/relaxed.gif",
-      duration: " 25 minutes",
+      duration: "30 minutes",
       category: "Support",
     },
     {
@@ -197,7 +197,7 @@ const [bookingLoading, setBookingLoading] = useState(false);
       description:
         "Deep healing work to integrate all parts of yourself with compassion.",
       icon: "/yoga.gif",
-      duration: "To be determined",
+      duration: "40–45 minutes",
       category: "Deep Work",
     },
     {
@@ -213,7 +213,7 @@ const [bookingLoading, setBookingLoading] = useState(false);
       description:
         "Guidance and support for career decisions and professional growth.",
       icon: "/path.gif",
-      duration: "To be determined",
+      duration: "40–45 minutes",
       category: "Career",
     },
   ];
