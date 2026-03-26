@@ -42,8 +42,8 @@ const AboutPage = () => {
       role: "Psychologist",
       credentials: "M.Sc. Clinical Psychology",
       image: "/Dolly Alimkar.png",
-      facePosition: "50% 5%",
-      faceScale: "scale-[1.5]",
+      facePosition: "50% 0%",
+      faceScale: "scale-[1.2]",
     },
     {
       name: "Harshita",
@@ -245,8 +245,8 @@ const AboutPage = () => {
                       src={member.image}
                       alt={member.name}
                       fill
-                      className="object-cover object-top scale-[1.8]"
-                      style={{ objectPosition: "50% 15%" }}
+                      className={`object-cover ${member.faceScale}`}
+                      style={{ objectPosition: member.facePosition }}
                     />
                   </div>
                   <div className="text-center">
